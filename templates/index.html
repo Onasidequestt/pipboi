@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>$Vault</title>
+<title>Dat Pip Boi — o shit waddup</title>
 <link rel="icon" type="image/png" href="/assets/datboi-logo.png"/>
 <link rel="apple-touch-icon" href="/assets/datboi-logo.png"/>
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet"/>
@@ -12,7 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
 <style>
 /* ═══════════════════════════════════════════════════
-   VAULT FLEET — PIP-BOY MOBILE v29
+   DAT PIP BOI — PIP-BOY MOBILE v29
    Full-screen terminal. Phosphor display. Touch-first.
    ═══════════════════════════════════════════════════ */
 :root {
@@ -1936,7 +1936,7 @@ button, a, input, .slot-header, .think-toggle, .tok-link, .modal-btn {
   /* immersive top-left reads the brand, not "VAULT-BOT #N" */
   .vault-slot.immersive .slot-num { font-size: 0; }
   .vault-slot.immersive .slot-num::before {
-    content: "$Vault"; font-size: 19px; letter-spacing: .04em;
+    content: "DAT PIP BOI"; font-size: 19px; letter-spacing: .04em;
     color: var(--green-300); text-shadow: var(--glow-sm);
   }
   .vault-slot.immersive .shdr-chevron,
@@ -2061,7 +2061,7 @@ button:focus-visible, a:focus-visible, .tier-btn:focus-visible, .slot-header:foc
 @keyframes chart-develop { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
 #chart-wrap.chart-develop, .chart-wrap.chart-develop { animation: chart-develop .6s var(--ease-out); }
 
-/* (4) "$Vault" header — SplitText-style per-character rise on app entrance,
+/* (4) "Dat Pip Boi" header — SplitText-style per-character rise on app entrance,
    in pure CSS (chars wrapped in .ch by JS at reveal; no library needed). */
 #fleet-logo .flogo-txt .ch { display:inline-block; color: var(--g); }
 #fleet-logo.logo-reveal .flogo-txt .ch {
@@ -2102,8 +2102,8 @@ button:focus-visible, a:focus-visible, .tier-btn:focus-visible, .slot-header:foc
 
   <!-- FLEET HEADER -->
   <div id="fleet-header">
-    <div id="fleet-logo" onclick="_secretTap(event)" data-tip="$Vault — tap 5× for admin">
-      <span class="flogo-txt">$Vault</span>
+    <div id="fleet-logo" onclick="_secretTap(event)" data-tip="Dat Pip Boi — tap 5× for admin">
+      <span class="flogo-txt">Dat Pip Boi</span>
     </div>
     <div id="fleet-meta">
       <span id="active-count" data-tip="Active bots"><span style="color:var(--g)">1</span><span>/6</span> ACTIVE</span>
@@ -2436,7 +2436,7 @@ let _solPrice = 82; // updated on every status poll — used to convert USD audi
 
 // ── Vault Auth ────────────────────────────────────────────────────────────────
 // Public viewers see a clean read-only dashboard — no prompts, no friction.
-// Owner unlocks by tapping the $Vault logo (or any vault icon) 5 times within 4 seconds.
+// Owner unlocks by tapping the Dat Pip Boi logo (or any vault icon) 5 times within 4 seconds.
 // Accepted credentials: full DASHBOARD_SECRET token OR the short PIN ("0098").
 // Session lives in sessionStorage — clears when the tab closes.
 let _sessionUnlocked = false;   // resets to locked on every page load/refresh
@@ -7247,7 +7247,7 @@ const BOOT_LINES = [
   { t: 'PRESTIGE GUARD: ◎2.0 DRAIN LOGIC — ARMED',          hi: false },
   { t: 'AUDIT LOG: trades.db — OPEN',                       hi: false },
   { t: 'ALL SYSTEMS NOMINAL.',                              hi: true  },
-  { t: '$VAULT — FLEET ONLINE.',                            hi: true  },
+  { t: 'DAT PIP BOI — FLEET ONLINE.',                            hi: true  },
 ];
 
 function delay(ms){ return new Promise(r=>setTimeout(r,ms)); }
@@ -7271,9 +7271,9 @@ async function boot(){
   logo.classList.add('breathing');
   await delay(90);
 
-  // ── Phase 2: type "$Vault" ───────────────────────────────────────────
+  // ── Phase 2: type "Dat Pip Boi" ───────────────────────────────────────────
   title.classList.add('visible');
-  await typeText(title, '$Vault', 32);   /* S122: dropped the T.E.C. tag — boot title matches the header wordmark */
+  await typeText(title, 'Dat Pip Boi', 32);   /* S122: dropped the T.E.C. tag — boot title matches the header wordmark */
   await delay(80);
 
   // ── Phase 3: rolling terminal window — last 9 lines, oldest dimmed ──
@@ -7332,7 +7332,7 @@ async function boot(){
   }
 
   // ── S118: app-entrance motion (one-shot, auto-gated by reduced-motion) ──
-  // "$Vault" header — split into per-character spans, then a SplitText-style rise.
+  // "Dat Pip Boi" header — split into per-character spans, then a SplitText-style rise.
   try{
     const logo = document.getElementById('fleet-logo');
     const txt  = logo && logo.querySelector('.flogo-txt');
