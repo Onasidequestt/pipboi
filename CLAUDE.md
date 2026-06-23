@@ -1,6 +1,6 @@
-# CLAUDE.md — operating guide for Vault Bot
+# CLAUDE.md — operating guide for Dat Pip Boi
 
-You are helping someone run **their own** Vault Bot: an autonomous Solana
+You are helping someone run **their own** Dat Pip Boi: an autonomous Solana
 memecoin trading fleet with a live dashboard and an evidence-gated learning
 loop. This file is your map and your rulebook. Read it before acting.
 
