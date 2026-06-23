@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Vault-bot fleet watchdog — runs fleet_watchdog.py every 6h.
+     LaunchAgent (not cron): runs in your user session and fires a missed job on wake,
+     which matters on a laptop that sleeps. Reclaims empty-ATA rent, auto-sells orphans
+     worth >= 0.05 SOL, and alerts on frozen bots / stalled sidecar / dead loops / a
+     fresh ghost-close streak. fleet_watchdog.py holds a single-instance lock, so this
+     agent and a running watchdog_loop.sh cannot double-run / double-sell.
+
+     Install:
+       cp deploy/com.vaultbot.watchdog.plist ~/Library/LaunchAgents/
+       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.vaultbot.watchdog.plist
+       launchctl enable gui/$(id -u)/com.vaultbot.watchdog
+     Remove:
+       launchctl bootout gui/$(id -u)/com.vaultbot.watchdog
+     Run once now (test):
+       launchctl kickstart -k gui/$(id -u)/com.vaultbot.watchdog
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.vaultbot.watchdog</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <string>cd /Users/onasidequest/solana-trader &amp;&amp; python3 fleet_watchdog.py</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/onasidequest/solana-trader</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StartInterval</key>
+  <integer>21600</integer>
+  <key>StandardOutPath</key>
+  <string>/Users/onasidequest/solana-trader/logs/watchdog_launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/onasidequest/solana-trader/logs/watchdog_launchd.log</string>
+</dict>
+</plist>

@@ -1,0 +1,94 @@
+{
+  "_version": 1,
+  "_description": "Canonical tunable defaults. All values here can be overridden at runtime by thresholds_override.json without editing source code or restarting bots.",
+
+  "trading": {
+    "poll_interval_seconds": 30,
+    "reserve_sol": 0.05,
+    "max_deployed_sol_pct": 0.75,
+    "min_position_sol": 0.003
+  },
+
+  "sizing": {
+    "base_fraction": 0.10,
+    "stack_confidence_min": 0.75,
+    "max_stack_count": 2,
+    "stack_size_multiplier": 0.5,
+    "conviction_bc_whale_mult": 1.40,
+    "conviction_elite_mult": 1.25
+  },
+
+  "discovery": {
+    "refresh_cycles": 3,
+    "min_liquidity_usd": 100000,
+    "min_volume_5m": 5000,
+    "min_volume_24h": 50000,
+    "overbought_1h_pct": 12.0,
+    "conf_cap": 0.70,
+    "conf_min_trades": 3
+  },
+
+  "gem_path": {
+    "min_liquidity": 50000,
+    "max_age_hours": 12,
+    "min_buy_ratio": 1.5,
+    "min_volume_5m": 3500
+  },
+
+  "vol_gates": {
+    "gem_min_volume_5m": 3500,
+    "std_min_volume_5m": 5000
+  },
+
+  "circuit_breaker": {
+    "losses": 3,
+    "window_minutes": 15,
+    "cooloff_minutes": 12
+  },
+
+  "smart_trail": {
+    "multiplier": 2.0,
+    "history_len": 10,
+    "min_buffer_pct": 0.5,
+    "max_buffer_pct": 8.0
+  },
+
+  "dynamic_tp1": {
+    "vol_window": 3,
+    "vol_threshold": 3.0,
+    "early_pct": 5.0
+  },
+
+  "twap": {
+    "impact_threshold": 2.0,
+    "tranches": 3,
+    "inter_tranche_delay": 2.0
+  },
+
+  "market_state": {
+    "starvation_minutes": 180,
+    "vol_threshold_usd": 500000,
+    "floor_override_pct": 4.0
+  },
+
+  "profit_lock": {
+    "threshold_pct": 0.75
+  },
+
+  "jito": {
+    "tip_quiet_lamports": 25000,
+    "tip_normal_lamports": 50000,
+    "tip_hot_lamports": 100000,
+    "tip_pump_lamports": 200000,
+    "pressure_quiet_normal": 10000,
+    "pressure_normal_hot": 100000,
+    "pressure_hot_pump": 1000000,
+    "tip_cache_seconds": 30,
+    "per_attempt_fallback": true
+  },
+
+  "ev_halt": {
+    "trade_window": 10,
+    "sol_limit": -0.1
+  }
+}

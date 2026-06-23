@@ -1,0 +1,76 @@
+{
+  "_meta": {
+    "version": 2,
+    "marker": "TAXONOMY",
+    "created": "2026-06-12",
+    "derived_from": "research/taxonomy/{bands.json,cells.json,FINDINGS.md} — 57,626 forward_obs on honest_objective (per-mint dedup) + 122 proceeds-era closes under the S105-audit concentration rule (>=8 mints, no mint >40%)",
+    "thesis": "ONE legible 4x3 policy surface: plays collapsed 7+3-shadow -> 4 real cohorts (RUNNER/SCALP/DEEP/DUST), regimes collapsed 5 -> 3 (RISK_ON/NEUTRAL/RISK_OFF) with cutoffs derived from honest-EV separation, exits keyed on PLAY + POOL-DEPTH (EVOLVE-12), never on tape regime.",
+    "regime_naming_note": "Honest EV falls MONOTONICALLY with global volume (lo +6.1pp / mid +0.3 / hi -0.1, 690/444/385 mints) — so RISK_ON = the QUIET tape (<$222k agg) and RISK_OFF = the high-volume meme-flood (>=$282k). This inverts the old ladder's euphoria/aggressive up-weighting, which was the proven-wrong assumption (S127 task A).",
+    "second_signal_test": "vol_trend (eta2 0.0007) and frac_drain (0.0001) do NOT split the middle band better than nothing — plain 3 volume bands stand; no second axis earned a seat.",
+    "absorbs": {
+      "_DEEP_POOL_SKIP_REGIMES": "DEEP row admit=frozen in ALL bands (S110 + kill_criterion FAIL n=35 — the freeze made legible, not negotiable)",
+      "admit_guard force_skip (gem/relay x normal)": "SCALP row admit=skip in ALL bands (realized: RISK_ON -6.29pp/21 mints, NEUTRAL -12.34pp/12 mints — both meet the concentration rule and both are red; RISK_OFF is the worst forward band)",
+      "_REGIME_SIZE_MULT (0.85/1.0/0.7/0.45/0.25)": "retired -> tape_mult 1.0; per-cell size_mult owns sizing (the euphoria/aggressive up-weight was keyed on the inverted axis)",
+      "_BLEED_TRIM_POCKETS x0.5 (normal only)": "superseded by SCALP admit=skip (S117 stop-the-bleed, generalized to every band)",
+      "_NORMAL_DP_SIZE_MULT": "normal_slice maps to DEEP (frozen); its canary is inert since S117 — cell unreachable",
+      "_MOMENTUM_OVERRIDE_SIZE_MULT (x0.5)": "absorbed into RUNNER cells size_mult=0.5 (main.py lane mult is skipped when the canary is ON — no double-trim)",
+      "S127 depth no-trade belts (>=250k)": "kept as depth_belts per play (the S119-audit Jotchu glitch-admits were a $4.9M pool; runner cohort median liq $9.7k)",
+      "regime_mom 5-way scale": "NOT in this table — scoring keeps the legacy 5-band internally until the reader/scorer migration (named follow-up); policy decisions here never key on the 5 names",
+      "exit canary zoo (_deep_pool_ride/_momentum_override_ride/vol_accel_exit/_momentum_gem_ride)": "named exit families below; on a canary-ON bot the family resolver supersedes the per-canary _on() reads (byte-equivalent mapping, tested); the 4 json canary files remain the masters for control bots until the post-proof retirement"
+    },
+    "frozen_note": "DEEP and DUST rows are hardcoded in regime_policy.py — a tampered table cannot re-enable DEEP or block/count DUST.",
+    "follow_up_named": "reader migration (edge_report/prestige_tracker/lane_watch/kill_criterion read play_v2/regime_v2 tags) + physical deletion of the 5-band ladder, regime_mom table, STOIC->bank hardcode, and the 4 exit canary files — AFTER the watcher proves the canary."
+  },
+  "regimes_v2": {
+    "order": ["RISK_ON", "NEUTRAL", "RISK_OFF"],
+    "cuts": {"c1": 221873, "c2": 281604},
+    "hysteresis_frac": 0.10,
+    "evidence": "grid search, dedup eta2 0.0205 (best of 153 cut pairs, each band >=15% share); band honest-EV means +6.13 / +0.29 / -0.14 pp; RUNNER cohort positive in all three (+16.0/+13.1/+12.5); flips/day 80.9 raw -> 51.6 at +/-10% hysteresis",
+    "legacy_shim": {"dead": "RISK_ON", "sniper": "RISK_ON", "normal": "RISK_ON", "aggressive": "RISK_OFF", "euphoria": "RISK_OFF"},
+    "shim_note": "name-level shim is lossy: legacy `normal` ($110-280k) straddles c1 — its 222-280k sliver is truly NEUTRAL but shims to RISK_ON. Live tagging stamps the exact band from agg at open; the shim is the fallback for restart-survivor positions and historical reads."
+  },
+  "plays_v2": {
+    "RUNNER": {"from_flags": ["momentum_override"], "note": "the validated +EV lane, promoted to a first-class play (mint-bootstrap CI [+27,+41], OOS +16%, 220 mints — S118)"},
+    "SCALP": {"from_plays": ["gem", "momentum", "relay", "quick", "bank", "highconv", "mean_reversion", "probe", "force_fire"], "note": "merge evidence: pool dedup -9.78pp/23 mints; bank -5.77/9 mints, mean_reversion -15.05/4, highconv n=0 — none distinct (>5pp at >=8 mints) -> FOLD. The STOIC->bank hardcode is retired SEMANTICALLY here (bot3 rows = SCALP like everyone; the legacy param key survives only until the follow-up)."},
+    "DEEP": {"from_plays": ["deep_pool", "brain_rule"], "from_flags": ["normal_slice"], "note": "bookkeeping row ONLY — disproven (kill_criterion FAIL), disarmed, frozen; visible in the grid instead of tagged off-site"},
+    "DUST": {"from_flags": ["dust_shadow"], "note": "shadow probes — excluded from live gates, governed by their own canary; the resolver never blocks or counts them"}
+  },
+  "grid": {
+    "RUNNER": {
+      "RISK_ON":  {"admit": "full", "size_mult": 0.5, "exit_family": "RIDE_WIDE"},
+      "NEUTRAL":  {"admit": "full", "size_mult": 0.5, "exit_family": "RIDE_WIDE"},
+      "RISK_OFF": {"admit": "full", "size_mult": 0.5, "exit_family": "RIDE_WIDE"}
+    },
+    "SCALP": {
+      "RISK_ON":  {"admit": "skip", "size_mult": 0.5, "exit_family": "SCALP_OUT"},
+      "NEUTRAL":  {"admit": "skip", "size_mult": 0.5, "exit_family": "SCALP_OUT"},
+      "RISK_OFF": {"admit": "skip", "size_mult": 0.5, "exit_family": "SCALP_OUT"}
+    },
+    "DEEP": {
+      "RISK_ON":  {"admit": "frozen", "size_mult": 1.0, "exit_family": "RIDE_TIGHT"},
+      "NEUTRAL":  {"admit": "frozen", "size_mult": 1.0, "exit_family": "RIDE_TIGHT"},
+      "RISK_OFF": {"admit": "frozen", "size_mult": 1.0, "exit_family": "RIDE_TIGHT"}
+    },
+    "DUST": {
+      "RISK_ON":  {"admit": "shadow", "size_mult": 1.0, "exit_family": "SCALP_OUT"},
+      "NEUTRAL":  {"admit": "shadow", "size_mult": 1.0, "exit_family": "SCALP_OUT"},
+      "RISK_OFF": {"admit": "shadow", "size_mult": 1.0, "exit_family": "SCALP_OUT"}
+    }
+  },
+  "grid_note": "SCALP size_mult 0.5 is dormant while admit=skip — it is the pre-agreed posture IF the operator re-opens a SCALP cell (edit admit to 'reduced'); re-opening is a one-line table edit, not code.",
+  "depth_belts": {"RUNNER": {"max_liq": 250000}, "SCALP": {"max_liq": 250000}},
+  "exit_families": {
+    "RIDE_TIGHT": {"trail_act_pct": 5.0, "note": "the deep_pool/brain_rule ride (EVOLVE12 act+5, SL -10, smart trail, no fixed-TP bank) — DEEP positions keep exactly this (S110: no exit change)"},
+    "RIDE_WIDE": {"trail_act_pct": 10.0, "note": "the runner / momentum-gem / small-pool ride (act +10, SL -10, no fixed-TP bank; runner_freeride wide buffers + house_money compose as overlays)"},
+    "BANK": {"note": "fixed TP/SL + TP1 partial — the classic bank-param exit (legacy bank/stoic positions)"},
+    "SCALP_OUT": {"note": "tier TP/SL + smart trail — the default price-action exit"}
+  },
+  "exit_resolution": {
+    "DEEP": "RIDE_TIGHT (all depths)",
+    "RUNNER": "RIDE_WIDE (all depths it can enter; belt <=250k)",
+    "SCALP": "RIDE_WIDE when entry_liq < 50000 (vol_accel small-pool cohort) OR (50000 <= entry_liq < 250000 AND tier in [gem, momentum] AND momentum_at_entry >= 3) — the Jotchua signature; BANK when the position carries bank params; SCALP_OUT otherwise",
+    "DUST": "whatever family its fields resolve to (dust rides the real exit machinery)"
+  },
+  "exit_qualifiers": {"vae_max_liq": 50000, "mg_liq_lo": 50000, "mg_liq_hi": 250000, "mg_mom_min": 3.0, "mg_tiers": ["gem", "momentum"], "bank_plays": ["bank"]},
+  "overlays_untouched": ["house_money (de-risk)", "catastrophic_drain (de-risk)", "rug_screen", "wash_veto", "dead_pool_quarantine"]
+}

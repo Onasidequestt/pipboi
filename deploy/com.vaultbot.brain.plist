@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Vault-bot strategy_brain — hourly shadow-evolution + wire-to-live readiness check.
+     LaunchAgent (not cron): fires a missed job on wake (laptop sleeps). Each run harvests
+     matured observations into the durable store, re-scores all candidates on sellable obs,
+     applies shadow promotion/rollback within guardrails, and prints the wire-to-live verdict
+     (the 🎉 LIVE-READY moment). Reads-only against trade execution — never touches live SOL.
+
+     ⚠ Only ONE evolve loop should run. Before installing this, stop the nohup loop:
+       pkill -f "strategy_brain.py --evolve"
+
+     Install:
+       cp deploy/com.vaultbot.brain.plist ~/Library/LaunchAgents/
+       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.vaultbot.brain.plist
+       launchctl enable gui/$(id -u)/com.vaultbot.brain
+     Remove:
+       launchctl bootout gui/$(id -u)/com.vaultbot.brain
+     Run once now (test):
+       launchctl kickstart -k gui/$(id -u)/com.vaultbot.brain
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.vaultbot.brain</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <string>cd /Users/onasidequest/solana-trader &amp;&amp; python3 strategy_brain.py --evolve --horizon 30</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/onasidequest/solana-trader</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StartInterval</key>
+  <integer>3600</integer>
+  <key>StandardOutPath</key>
+  <string>/Users/onasidequest/solana-trader/logs/brain_loop.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/onasidequest/solana-trader/logs/brain_loop.log</string>
+</dict>
+</plist>

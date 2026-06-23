@@ -1,0 +1,3 @@
+This directory holds bot #1's local state (created at runtime): keypair.json,
+trades.db, status.json, positions.json, and per-feature config "canary" files.
+None of it is committed. See SETUP.md to deploy a bot.

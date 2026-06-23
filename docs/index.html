@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dat Pip Boi — o shit waddup · an autonomous Solana vault you run yourself</title>
+<meta name="description" content="Open-source, self-hosted autonomous Solana trading fleet. Run it on your own wallet, your own keys, operated by your own Claude. Honest about its own edge. Not financial advice.">
+<link rel="icon" type="image/png" href="assets/datboi-favicon-256.png">
+<meta property="og:title" content="Dat Pip Boi — o shit waddup · self-hosted Solana vault">
+<meta property="og:description" content="Download it. Run it on your wallet, your keys, your machine. A live terminal dashboard, an evidence-gated learning loop, and code that tells you the truth about whether it's working.">
+<meta property="og:image" content="assets/datboi-token-1000.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#040704; --bg2:#070c07; --card:#0b120b; --card2:#0e160e; --line:#172517;
+    --line2:#1f331f;
+    --g:#3DFB6E; --g2:#2EE85C; --gd:#1AA847; --gdim:#2BCB56; --ghi:#A8FFC6;
+    --txt:#e4f3e8; --dim:#8aa890; --faint:#5a7261;
+    --warn:#FFD27A; --red:#ff6e6e; --glow:rgba(61,251,110,.5);
+    --mono:"VT323",ui-monospace,Menlo,monospace;
+    --sans:"Space Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--sans);
+       line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:default}
+  ::selection{background:rgba(61,251,110,.28);color:#eafff0}
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:#142a18;border-radius:6px;border:2px solid var(--bg)}
+  ::-webkit-scrollbar-thumb:hover{background:var(--gd)}
+
+  /* ambient mesh */
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(640px 440px at 16% -4%,rgba(61,251,110,.10),transparent 60%),
+      radial-gradient(720px 540px at 94% 6%,rgba(46,232,92,.06),transparent 60%),
+      radial-gradient(1000px 760px at 50% 120%,rgba(26,168,71,.08),transparent 60%)}
+  #cursor-fx{position:fixed;inset:0;z-index:0;pointer-events:none}
+  main,nav,footer{position:relative;z-index:2}
+  a{color:var(--g);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono)}
+  .green{color:var(--g)}
+
+  /* scroll progress */
+  #progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:90;
+    background:linear-gradient(90deg,var(--gd),var(--g));box-shadow:0 0 12px var(--glow)}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:80;transition:.3s var(--ease);
+      background:rgba(4,7,4,.5);backdrop-filter:blur(14px);border-bottom:1px solid transparent}
+  nav.scrolled{background:rgba(4,7,4,.92);border-bottom-color:var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);
+         font-size:30px;letter-spacing:.02em;color:var(--g);text-shadow:0 0 16px var(--glow)}
+  .brand img{width:28px;height:28px;filter:drop-shadow(0 0 8px var(--glow))}
+  .nav-links{display:flex;align-items:center;gap:26px;font-size:14.5px;font-weight:500}
+  .nav-links a{color:var(--dim);transition:.18s}
+  .nav-links a:hover{color:var(--g);text-decoration:none}
+  .btn{position:relative;display:inline-flex;align-items:center;gap:9px;border-radius:11px;
+       padding:12px 20px;font-weight:600;font-size:15px;font-family:var(--sans);cursor:pointer;
+       text-decoration:none;border:1px solid transparent;transition:.2s var(--ease)}
+  .btn:hover{text-decoration:none;transform:translateY(-2px)}
+  .btn-primary{background:linear-gradient(180deg,#4dff7c,#2EE85C);color:#04130a;
+       box-shadow:0 8px 30px rgba(61,251,110,.28),inset 0 1px 0 rgba(255,255,255,.4)}
+  .btn-primary:hover{box-shadow:0 12px 40px rgba(61,251,110,.42)}
+  .btn-ghost{background:rgba(61,251,110,.04);color:var(--g);border-color:var(--gd)}
+  .btn-ghost:hover{background:rgba(61,251,110,.12);border-color:var(--g)}
+  .nav-links .btn{padding:9px 16px}
+  @media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+  /* ── hero ── */
+  header{min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+         text-align:center;position:relative;padding:90px 0 70px}
+  .eyebrow{display:inline-block;font-family:var(--mono);font-size:17px;letter-spacing:.32em;
+           color:var(--gdim);text-transform:uppercase;padding:6px 18px;margin-bottom:26px;
+           border:1px solid var(--line2);border-radius:999px;background:rgba(61,251,110,.04)}
+  h1{font-family:var(--mono);font-size:clamp(84px,18vw,200px);line-height:.86;margin:0;
+     color:var(--g);letter-spacing:.01em;
+     text-shadow:0 0 50px var(--glow),0 0 110px rgba(61,251,110,.22)}
+  .boot{margin:26px auto 0;font-size:clamp(17px,2.6vw,22px);color:var(--gdim);min-height:1.6em}
+  .boot .caret{display:inline-block;color:var(--g);animation:blink 1.05s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .tag{font-size:clamp(20px,3.4vw,30px);font-weight:600;margin:18px auto 0;max-width:840px;
+       color:#f0fff4;letter-spacing:-.01em;line-height:1.3}
+  .sub{font-size:17.5px;font-weight:300;color:var(--dim);max-width:660px;margin:16px auto 0}
+  .cta{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+  .cta .btn{padding:16px 30px;font-size:16px}
+  .risk{margin:30px auto 0;max-width:640px;font-size:13px;color:var(--warn);
+        border:1px solid #46390f;background:rgba(21,17,6,.35);border-radius:10px;padding:11px 18px}
+  .cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+       font-family:var(--mono);font-size:26px;color:var(--gd);animation:cue 2.2s var(--ease) infinite}
+  @keyframes cue{0%,100%{transform:translate(-50%,0);opacity:.5}50%{transform:translate(-50%,9px);opacity:1}}
+
+  /* ticker tape */
+  .tape{position:relative;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+        background:rgba(7,12,7,.6);overflow:hidden;padding:13px 0;
+        mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+  .tape-in{display:flex;width:max-content;gap:0;font-family:var(--mono);font-size:18px;
+        color:var(--faint);white-space:nowrap;animation:tape 46s linear infinite}
+  .tape-in b{color:var(--gdim);font-weight:400}
+  .tape-in .up{color:var(--g)}
+  .tape-in .dn{color:var(--red);opacity:.7}
+  @keyframes tape{to{transform:translateX(-50%)}}
+  .tape:hover .tape-in{animation-play-state:paused}
+
+  /* banner slot */
+  .banner{margin:64px auto 0;max-width:1024px;border:1px solid var(--line2);border-radius:16px;
+          overflow:hidden;box-shadow:0 24px 80px rgba(61,251,110,.12),0 0 0 1px rgba(61,251,110,.06)}
+  .banner img{display:block;width:100%}
+  .banner.placeholder{aspect-ratio:1024/300;display:flex;align-items:center;justify-content:center;
+          background:
+            radial-gradient(400px 200px at 50% 50%,rgba(61,251,110,.08),transparent 70%),
+            linear-gradient(180deg,#0b130b,#050905);
+          color:var(--faint);font-family:var(--mono);font-size:21px;text-align:center;padding:20px}
+
+  /* sections */
+  section{padding:110px 0}
+  section.alt{background:linear-gradient(180deg,var(--bg2),var(--bg));
+              border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .kicker{font-family:var(--mono);font-size:17px;letter-spacing:.26em;color:var(--gdim);
+          text-transform:uppercase;display:flex;align-items:center;gap:14px}
+  .kicker::after{content:"";height:1px;flex:0 0 56px;background:linear-gradient(90deg,var(--gd),transparent)}
+  h2{font-size:clamp(32px,5.4vw,52px);margin:14px 0 12px;color:#f0fff4;letter-spacing:-.025em;line-height:1.06}
+  .lead{font-size:18.5px;font-weight:300;color:var(--dim);max-width:760px}
+
+  /* stats strip */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-top:54px}
+  .stat{border:1px solid var(--line);border-radius:14px;padding:22px 22px 18px;
+        background:linear-gradient(180deg,var(--card2),transparent)}
+  .stat b{display:block;font-family:var(--mono);font-size:54px;line-height:1;color:var(--g);
+        font-weight:400;text-shadow:0 0 18px var(--glow)}
+  .stat span{display:block;margin-top:8px;font-size:13.5px;color:var(--dim);line-height:1.45}
+
+  /* bento */
+  .bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:48px}
+  .b-card{position:relative;background:linear-gradient(180deg,var(--card2),var(--card));
+        border:1px solid var(--line);border-radius:18px;padding:28px;overflow:hidden;
+        transition:.35s var(--ease)}
+  .b-card::after{content:"";position:absolute;inset:0;border-radius:18px;opacity:0;transition:.35s;
+        background:radial-gradient(420px 220px at 30% -10%,rgba(61,251,110,.14),transparent 70%);pointer-events:none}
+  .b-card:hover{transform:translateY(-4px);border-color:var(--gd);box-shadow:0 22px 60px rgba(0,0,0,.55)}
+  .b-card:hover::after{opacity:1}
+  .b-card h3{position:relative;font-size:20px;margin:0 0 8px;color:#f0fff4;font-weight:600;letter-spacing:-.01em}
+  .b-card p{position:relative;font-size:15px;color:var(--dim);margin:0;font-weight:300}
+  .b-card .ic{position:relative;font-family:var(--mono);font-size:30px;color:var(--g);
+        text-shadow:0 0 16px var(--glow);margin-bottom:12px}
+  .s7{grid-column:span 7}.s5{grid-column:span 5}.s4{grid-column:span 4}
+  @media(max-width:920px){.s7,.s5,.s4{grid-column:span 12}}
+
+  /* mini dashboard mock inside bento */
+  .mock{position:relative;margin-top:20px;border:1px solid var(--line2);border-radius:12px;
+        background:#050a05;padding:16px 18px;font-family:var(--mono);font-size:16px;
+        color:var(--gdim);line-height:1.7;overflow:hidden}
+  .mock::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;
+        background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 3px)}
+  .mock .hd{display:flex;justify-content:space-between;color:var(--faint);border-bottom:1px solid var(--line);
+        padding-bottom:8px;margin-bottom:10px;font-size:15px;letter-spacing:.08em}
+  .mock .ln{display:flex;justify-content:space-between;gap:14px}
+  .mock .ln em{font-style:normal;color:var(--g)}
+  .mock .ln i{font-style:normal;color:var(--red);opacity:.8}
+  .wallets{position:relative;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .wchip{font-family:var(--mono);font-size:15px;color:var(--gdim);border:1px solid var(--line2);
+        border-radius:8px;padding:3px 10px;background:rgba(61,251,110,.04)}
+  .wchip.off{opacity:.38}
+  .srcs{position:relative;margin-top:14px;display:grid;gap:7px;font-family:var(--mono);font-size:16px;color:var(--gdim)}
+  .srcs span::before{content:"⇣ ";color:var(--g)}
+
+  /* gate meter (bento + learn stage) */
+  .gate{position:relative;margin-top:18px;font-family:var(--mono);font-size:16px;color:var(--gdim)}
+  .gate .gbar{height:9px;border:1px solid var(--line2);border-radius:6px;background:#050a05;
+        overflow:hidden;margin:7px 0 9px}
+  .gate .gbar i{display:block;height:100%;width:40%;border-radius:6px;
+        background:linear-gradient(90deg,var(--gd),var(--g));box-shadow:0 0 12px var(--glow)}
+  .lock{display:inline-block;color:var(--warn);border:1px solid #46390f;border-radius:6px;
+        padding:1px 9px;background:rgba(21,17,6,.4)}
+
+  /* ── the loop (scrollytelling) ── */
+  .loop-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-top:30px}
+  .loop-stick{position:sticky;top:calc(50vh - 300px)}
+  .term{position:relative;border:1px solid var(--line2);border-radius:16px;background:#050a05;
+        box-shadow:0 30px 90px rgba(0,0,0,.6),0 0 60px rgba(61,251,110,.07);overflow:hidden}
+  .term::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.4;
+        background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 3px)}
+  .term-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);
+        background:rgba(13,20,13,.7)}
+  .term-bar i{width:11px;height:11px;border-radius:50%;background:#16301c}
+  .term-bar i:first-child{background:var(--gd)}
+  .term-title{margin-left:8px;font-family:var(--mono);font-size:16px;color:var(--faint);letter-spacing:.04em;
+        white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .sim{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--warn);border:1px solid #46390f;
+        border-radius:5px;padding:0 7px;background:rgba(21,17,6,.4);letter-spacing:.1em}
+  .term-body{position:relative;height:480px;padding:22px 24px}
+  .stage{position:absolute;inset:22px 24px;opacity:0;transform:translateY(14px);
+        transition:opacity .5s var(--ease),transform .5s var(--ease);pointer-events:none;
+        font-family:var(--mono);font-size:19px;line-height:1.85;color:var(--gdim)}
+  .stage.on{opacity:1;transform:none}
+  .stage .row{opacity:0}
+  .stage.on .row{animation:rowin .55s var(--ease) forwards}
+  .stage.on .row:nth-of-type(1){animation-delay:.05s}
+  .stage.on .row:nth-of-type(2){animation-delay:.16s}
+  .stage.on .row:nth-of-type(3){animation-delay:.27s}
+  .stage.on .row:nth-of-type(4){animation-delay:.38s}
+  .stage.on .row:nth-of-type(5){animation-delay:.49s}
+  .stage.on .row:nth-of-type(6){animation-delay:.60s}
+  .stage.on .row:nth-of-type(7){animation-delay:.71s}
+  .stage.on .row:nth-of-type(8){animation-delay:.82s}
+  @keyframes rowin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .stage .ok{color:var(--g)}
+  .stage .bad{color:var(--red);opacity:.85}
+  .stage .mut{color:var(--faint)}
+  .stage .big{font-size:26px;color:var(--g);text-shadow:0 0 14px var(--glow)}
+  .stage .sep{border:0;border-top:1px dashed var(--line2);margin:10px 0}
+  .brow{display:grid;grid-template-columns:118px 1fr 44px;align-items:center;gap:12px}
+  .brow em{font-style:normal;text-align:right;color:var(--g)}
+  .bar{height:8px;border:1px solid var(--line2);border-radius:5px;background:#040804;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gd),var(--g));
+        border-radius:5px;box-shadow:0 0 10px var(--glow)}
+  .stage.on .bar i{animation:grow 1s .35s var(--ease) forwards}
+  @keyframes grow{to{width:var(--w)}}
+  .spark{display:block;width:100%;height:130px;margin:6px 0 2px}
+  .spark .px{fill:none;stroke:var(--g);stroke-width:2.4;filter:drop-shadow(0 0 6px var(--glow));
+        stroke-dasharray:620;stroke-dashoffset:620}
+  .stage.on .spark .px{animation:dash 1.7s .25s var(--ease) forwards}
+  @keyframes dash{to{stroke-dashoffset:0}}
+  .spark .tr{fill:none;stroke:var(--warn);stroke-width:1.4;stroke-dasharray:5 6;opacity:.7}
+  .spark .cl{fill:var(--g);opacity:0}
+  .stage.on .spark .cl{animation:rowin .4s 1.7s var(--ease) forwards}
+  .stage-dots{display:flex;gap:9px;justify-content:center;margin-top:18px}
+  .stage-dots i{width:7px;height:7px;border-radius:50%;background:#16301c;transition:.3s}
+  .stage-dots i.on{background:var(--g);box-shadow:0 0 10px var(--glow)}
+
+  .loop-steps{display:grid}
+  .lstep{min-height:76vh;display:flex;flex-direction:column;justify-content:center;
+        opacity:.3;transition:opacity .45s var(--ease);padding:40px 0}
+  .lstep.cur{opacity:1}
+  .lstep .num{font-family:var(--mono);font-size:19px;color:var(--gd);letter-spacing:.3em}
+  .lstep h3{font-size:clamp(26px,3.4vw,36px);margin:10px 0 12px;color:#f0fff4;letter-spacing:-.02em;line-height:1.12}
+  .lstep p{font-size:16.5px;font-weight:300;color:var(--dim);margin:0;max-width:480px}
+  .lstep p b{color:var(--txt);font-weight:600}
+
+  @media(max-width:920px){
+    .loop-grid{grid-template-columns:1fr;gap:0}
+    .loop-stick{position:sticky;top:64px;z-index:10;background:linear-gradient(180deg,var(--bg2) 82%,transparent);
+        padding-bottom:14px}
+    .term-body{height:252px;padding:14px 16px}
+    .stage{inset:14px 16px;font-size:16px;line-height:1.6}
+    .stage .big{font-size:20px}
+    .spark{height:84px}
+    .lstep{min-height:0;padding:46px 0 26px;opacity:1}
+    .stage-dots{display:none}
+  }
+
+  /* ── truth / scout feed ── */
+  .truth-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;margin-top:46px}
+  @media(max-width:920px){.truth-grid{grid-template-columns:1fr}}
+  .tlist{display:grid;gap:14px;margin-top:26px}
+  .titem{display:flex;gap:14px;align-items:flex-start}
+  .titem .tk{font-family:var(--mono);font-size:22px;color:var(--g);text-shadow:0 0 12px var(--glow);min-width:24px}
+  .titem b{display:block;color:#f0fff4;font-weight:600;font-size:16px}
+  .titem span{font-size:14.5px;font-weight:300;color:var(--dim)}
+  #feed{height:380px;padding:16px 20px;font-family:var(--mono);font-size:17px;line-height:1.9;
+        color:var(--faint);overflow:hidden;position:relative}
+  #feed .fl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #feed .adm{color:var(--g)}
+  #feed .tm2{color:#3d5443}
+
+  /* ── run it ── */
+  .steps{margin-top:44px;display:grid;gap:14px}
+  .step{display:flex;gap:18px;align-items:flex-start;background:linear-gradient(180deg,var(--card2),var(--card));
+        border:1px solid var(--line);border-radius:14px;padding:22px 24px;transition:.25s var(--ease)}
+  .step:hover{border-color:var(--gd);transform:translateX(4px)}
+  .step .n{font-family:var(--mono);font-size:30px;color:var(--g);min-width:34px;text-shadow:0 0 14px var(--glow)}
+  .cmd{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .step code{display:inline-block;font-family:var(--mono);font-size:18px;color:var(--g);background:#060d06;
+        padding:4px 12px;border-radius:7px;border:1px solid var(--line2)}
+  .copy{font-family:var(--mono);font-size:14px;color:var(--faint);border:1px solid var(--line);
+        background:transparent;border-radius:6px;padding:2px 10px;cursor:pointer;transition:.2s}
+  .copy:hover{color:var(--g);border-color:var(--gd)}
+  .step .d{color:var(--dim);font-size:15px;font-weight:300;margin-top:6px}
+
+  /* ── token ── */
+  .token-box{position:relative;overflow:hidden;background:linear-gradient(165deg,#0f170e,#060a06);
+        border:1px solid var(--gd);border-radius:22px;padding:44px;margin-top:40px;
+        box-shadow:0 0 90px rgba(61,251,110,.10)}
+  .token-box::before{content:"";position:absolute;top:-40%;right:-10%;width:460px;height:460px;
+        background:radial-gradient(circle,rgba(61,251,110,.15),transparent 65%);pointer-events:none}
+  .token-box h3{position:relative;font-family:var(--mono);font-size:46px;color:var(--g);margin:0 0 10px;
+        text-shadow:0 0 22px var(--glow);font-weight:400}
+  .pill{position:relative;display:inline-block;font-family:var(--mono);font-size:16px;color:var(--ghi);
+        border:1px solid var(--gd);border-radius:999px;padding:4px 14px;margin:4px 8px 4px 0;background:rgba(61,251,110,.06)}
+  .ca{position:relative;font-family:var(--mono);font-size:16px;color:var(--dim);word-break:break-all;
+        background:#050a05;border:1px solid var(--line);border-radius:9px;padding:12px 16px;margin-top:20px}
+  .disclaimer{margin-top:36px;border:1px solid #46390f;background:rgba(19,16,8,.3);border-radius:13px;
+        padding:24px 26px;font-size:14px;font-weight:300;color:#d8c9a3}
+  .disclaimer b{color:var(--warn);font-weight:600}
+
+  /* ── claude ── */
+  #claude{text-align:center}
+  #claude .lead{margin:0 auto}
+  .cq{font-size:clamp(22px,3.4vw,32px);font-weight:600;color:#f0fff4;letter-spacing:-.015em;
+      max-width:780px;margin:18px auto 14px;line-height:1.35}
+  .cq .green{text-shadow:0 0 18px var(--glow)}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:64px 0 40px;text-align:center;color:var(--faint);font-size:14.5px;overflow:hidden}
+  footer .flinks{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-bottom:22px;font-weight:500}
+  footer a{color:var(--dim)}
+  footer a:hover{color:var(--g)}
+  .tm{max-width:720px;margin:18px auto 0;font-size:12.5px;color:var(--faint);line-height:1.6}
+  .wm{font-family:var(--mono);font-size:clamp(90px,19vw,240px);line-height:.9;margin-top:36px;
+      color:transparent;-webkit-text-stroke:1px rgba(61,251,110,.13);user-select:none;pointer-events:none}
+
+  /* scroll reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .bento .b-card{transition:.35s var(--ease),opacity .8s var(--ease),transform .8s var(--ease)}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1!important;transform:none!important;transition:none}
+    .tape-in{animation:none}
+    .cue{animation:none}
+    .boot .caret{animation:none}
+    .lstep{opacity:1}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<canvas id="cursor-fx"></canvas>
+<div id="progress"></div>
+
+<nav id="nav">
+  <div class="wrap">
+    <span class="brand"><img src="assets/datboi.png" alt="Dat Pip Boi">Dat Pip Boi</span>
+    <div class="nav-links">
+      <a href="#what">What it is</a>
+      <a href="#loop">The loop</a>
+      <a href="#truth">The truth</a>
+      <a href="#run">Run it</a>
+      <a href="#token">$DATBOI</a>
+      <a class="btn btn-primary" href="https://github.com/Onasidequestt/datpipboi">⬇ GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ── HERO ── -->
+<header>
+  <div class="wrap">
+    <div class="eyebrow reveal">o shit waddup · Self-hosted · Solana</div>
+    <img class="reveal" src="assets/datboi.png" alt="Dat Pip Boi — wireframe frog on a unicycle" width="240" height="240" style="margin:0 auto 4px;display:block;filter:drop-shadow(0 0 26px rgba(61,251,110,.45))">
+    <h1 class="reveal">DAT PIP BOI</h1>
+    <div class="boot mono reveal"><span id="typed"></span><span class="caret">█</span></div>
+    <p class="tag reveal">o shit waddup — the unicycle-frog vault that rolls in on your own machine, your wallet, your keys, and is <em>honest about its own edge</em>.</p>
+    <p class="sub reveal">Scroll to watch a trade move through the machine: discovery, scoring, admission, execution, exit — and the evidence loop that decides whether any of it actually works.</p>
+    <div class="cta reveal">
+      <a class="btn btn-primary" href="https://github.com/Onasidequestt/datpipboi">⬇ Get it on GitHub</a>
+      <a class="btn btn-ghost" href="#loop">See how it thinks</a>
+    </div>
+    <div class="risk reveal">⚠ Experimental research software. It trades real money on highly volatile memecoins and <b>can lose all of it</b>. Not financial advice.</div>
+  </div>
+  <div class="cue mono" aria-hidden="true">⌄</div>
+</header>
+
+<!-- ── TICKER (illustrative) ── -->
+<div class="tape" aria-hidden="true" title="Illustrative tape — not live data">
+  <div class="tape-in" id="tape">
+    <span>&nbsp;SCAN <b>7gXk…q2Lp</b> score 71 <span class="up">ADMIT</span> &nbsp;◇&nbsp; SKIP <b>3hTm…88Lq</b> dead pool &nbsp;◇&nbsp; CLOSE <span class="up">+18.4%</span> reason=trail &nbsp;◇&nbsp; SKIP <b>Vx2p…Mn0r</b> liq &lt; floor &nbsp;◇&nbsp; SCAN <b>9aQw…pump</b> score 44 <span class="dn">REJECT</span> &nbsp;◇&nbsp; sidecar heartbeat <span class="up">OK</span> &nbsp;◇&nbsp; CLOSE <span class="dn">−4.1%</span> reason=stop &nbsp;◇&nbsp; SKIP <b>Kd4f…77Aa</b> rug pattern &nbsp;◇&nbsp; gate evidence n=12/30 sizing <b>LOCKED</b> &nbsp;◇&nbsp; bot2 wallet ◎2.41 &nbsp;◇&nbsp;</span>
+    <span>&nbsp;SCAN <b>7gXk…q2Lp</b> score 71 <span class="up">ADMIT</span> &nbsp;◇&nbsp; SKIP <b>3hTm…88Lq</b> dead pool &nbsp;◇&nbsp; CLOSE <span class="up">+18.4%</span> reason=trail &nbsp;◇&nbsp; SKIP <b>Vx2p…Mn0r</b> liq &lt; floor &nbsp;◇&nbsp; SCAN <b>9aQw…pump</b> score 44 <span class="dn">REJECT</span> &nbsp;◇&nbsp; sidecar heartbeat <span class="up">OK</span> &nbsp;◇&nbsp; CLOSE <span class="dn">−4.1%</span> reason=stop &nbsp;◇&nbsp; SKIP <b>Kd4f…77Aa</b> rug pattern &nbsp;◇&nbsp; gate evidence n=12/30 sizing <b>LOCKED</b> &nbsp;◇&nbsp; bot2 wallet ◎2.41 &nbsp;◇&nbsp;</span>
+  </div>
+</div>
+
+<!-- ── WHAT IT IS ── -->
+<section id="what">
+  <div class="wrap">
+    <div class="kicker reveal">01 · What it is</div>
+    <h2 class="reveal">A whole trading desk,<br>on your own machine</h2>
+    <p class="lead reveal">Dat Pip Boi is a self-contained autonomous trading system for Solana memecoins. One discovery sidecar feeds a fleet of bots; each one scores, trades, and audits itself — and everything runs locally. Nothing leaves your box.</p>
+
+    <div class="stats">
+      <div class="stat reveal"><b><span data-count="6">0</span></b><span>bots max — each on its own wallet, its own ledger</span></div>
+      <div class="stat reveal"><b><span data-count="4">0</span></b><span>candidate data sources, polled by one shared sidecar</span></div>
+      <div class="stat reveal"><b><span data-count="100">0</span>%</b><span>self-hosted — your keys never touch anyone's server</span></div>
+      <div class="stat reveal"><b><span data-count="1">0</span></b><span>rule: never size up an unproven edge</span></div>
+    </div>
+
+    <div class="bento">
+      <div class="b-card s7 reveal">
+        <div class="ic">▤</div>
+        <h3>A live ops room at <span class="mono green">localhost:8080</span></h3>
+        <p>Fleet status, balances, open positions, and a ledger where every close carries the <em>reason</em> it happened.</p>
+        <div class="mock" aria-hidden="true">
+          <div class="hd"><span>DAT PIP BOI // VAULT</span><span>ledger · live</span></div>
+          <div class="ln"><span>bot1 &nbsp;◎ 2.4137</span><em>+0.0312 today</em></div>
+          <div class="ln"><span>bot2 &nbsp;◎ 1.8920</span><i>−0.0041 today</i></div>
+          <div class="ln"><span>bot3 &nbsp;◎ 2.0455</span><em>+0.0118 today</em></div>
+          <div class="ln"><span class="mut">last close · 7gXk…q2Lp</span><em>+18.4% · trail</em></div>
+        </div>
+      </div>
+      <div class="b-card s5 reveal">
+        <div class="ic">⛨</div>
+        <h3>Evidence-gated, not hype-driven</h3>
+        <p>It logs the forward return of <em>everything</em> it scores and refuses to size up until an edge proves itself on real, fee-inclusive results.</p>
+        <div class="gate">
+          <span>edge evidence &nbsp;n=12 / 30</span>
+          <div class="gbar"><i></i></div>
+          <span>ev-sizing &nbsp;<span class="lock">⛔ LOCKED</span> &nbsp;<span style="color:var(--faint)">until proven</span></span>
+        </div>
+      </div>
+      <div class="b-card s4 reveal">
+        <div class="ic">⚙</div>
+        <h3>An autonomous fleet</h3>
+        <p>Up to six bots that discover, score, size, and exit on their own — no babysitting.</p>
+        <div class="wallets" aria-hidden="true">
+          <span class="wchip">bot1 ●</span><span class="wchip">bot2 ●</span><span class="wchip">bot3 ●</span>
+          <span class="wchip off">bot4</span><span class="wchip off">bot5</span><span class="wchip off">bot6</span>
+        </div>
+      </div>
+      <div class="b-card s4 reveal">
+        <div class="ic">⇉</div>
+        <h3>Never starved for data</h3>
+        <p>Candidates stream in from four sources through one shared sidecar.</p>
+        <div class="srcs" aria-hidden="true">
+          <span>GeckoTerminal</span><span>DexScreener</span><span>bonding-curve flow</span><span>Bitquery RT (optional)</span>
+        </div>
+      </div>
+      <div class="b-card s4 reveal">
+        <div class="ic">✸</div>
+        <h3>Operated by your Claude</h3>
+        <p>Ships with a <span class="mono green">CLAUDE.md</span> operating manual, so Claude Code can set it up, run it, and reason about it <em>with</em> you — safely, read-only first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE LOOP (scrollytelling) ── -->
+<section class="alt" id="loop">
+  <div class="wrap">
+    <div class="kicker reveal">02 · The loop</div>
+    <h2 class="reveal">Watch a trade move<br>through the machine</h2>
+    <p class="lead reveal">Six stages, each one auditable. The panel below is a simulation of what the real dashboard shows you — scroll through the pipeline.</p>
+  </div>
+  <div class="wrap loop-grid">
+    <div class="loop-stick">
+      <div class="term">
+        <div class="term-bar">
+          <i></i><i></i><i></i>
+          <span class="term-title" id="stage-title">vault://pipeline/01-discover</span>
+          <span class="sim">SIM</span>
+        </div>
+        <div class="term-body">
+
+          <div class="stage on" data-title="vault://pipeline/01-discover">
+            <div class="row mut">// one sidecar polls, the whole fleet listens</div>
+            <div class="row">⇣ gecko_terminal&nbsp;&nbsp;&nbsp;poll ok · <span class="ok">41 pairs</span></div>
+            <div class="row">⇣ dexscreener&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;poll ok · <span class="ok">28 pairs</span></div>
+            <div class="row">⇣ bonding_curve&nbsp;&nbsp;&nbsp;&nbsp;poll ok · <span class="ok">12 mints</span></div>
+            <div class="row">⇣ bitquery&nbsp;(opt)&nbsp;&nbsp;&nbsp;stream · <span class="ok">live</span></div>
+            <hr class="sep">
+            <div class="row big">▸ snapshot → fleet (3 bots)</div>
+            <div class="row mut">fresh candidates, deduped, score-prepped</div>
+          </div>
+
+          <div class="stage" data-title="vault://pipeline/02-score">
+            <div class="row">candidate <span class="ok">7gXk…q2Lp</span> <span class="mut">· age 3m</span></div>
+            <hr class="sep">
+            <div class="row brow"><span>liq depth</span><div class="bar"><i style="--w:82%"></i></div><em>33</em></div>
+            <div class="row brow"><span>momentum</span><div class="bar"><i style="--w:70%"></i></div><em>21</em></div>
+            <div class="row brow"><span>vol accel</span><div class="bar"><i style="--w:60%"></i></div><em>9</em></div>
+            <div class="row brow"><span>holders</span><div class="bar"><i style="--w:53%"></i></div><em>8</em></div>
+            <hr class="sep">
+            <div class="row big">score 71 / 100</div>
+            <div class="row mut">forward return will be logged either way</div>
+          </div>
+
+          <div class="stage" data-title="vault://pipeline/03-admit">
+            <div class="row"><span class="bad">✗</span> 3hTm…88Lq&nbsp;&nbsp;score 41&nbsp;&nbsp;<span class="mut">skip · below floor</span></div>
+            <div class="row"><span class="bad">✗</span> Vx2p…Mn0r&nbsp;&nbsp;liq $2.1k&nbsp;&nbsp;<span class="mut">skip · too shallow</span></div>
+            <div class="row"><span class="bad">✗</span> 9aQw…pump&nbsp;&nbsp;flow −&nbsp;&nbsp;&nbsp;&nbsp;<span class="mut">skip · dead pool</span></div>
+            <div class="row"><span class="bad">✗</span> Kd4f…77Aa&nbsp;&nbsp;auth ✱&nbsp;&nbsp;&nbsp;<span class="mut">skip · rug pattern</span></div>
+            <hr class="sep">
+            <div class="row big"><span class="ok">✓</span> 7gXk…q2Lp · ADMIT</div>
+            <div class="row mut">most of the tape is rejected — by design</div>
+          </div>
+
+          <div class="stage" data-title="vault://pipeline/04-execute">
+            <div class="row">wallet balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ok">◎ 2.4137</span></div>
+            <div class="row">size (from wallet)&nbsp;&nbsp;<span class="ok">◎ 0.1207</span> <span class="mut">· 5.0%</span></div>
+            <div class="row">route&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Jupiter · 2 hops</div>
+            <div class="row">slippage guard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.8% max</div>
+            <hr class="sep">
+            <div class="row big">✓ fill confirmed on-chain</div>
+            <div class="row mut">no leverage · no margin · nothing hidden</div>
+          </div>
+
+          <div class="stage" data-title="vault://pipeline/05-exit">
+            <svg class="spark" viewBox="0 0 360 130" preserveAspectRatio="none" aria-hidden="true">
+              <path class="tr" d="M0,118 L120,118 C150,108 170,84 200,62 L268,46 L360,58"/>
+              <path class="px" d="M0,112 C36,108 58,96 88,84 C120,70 150,52 190,34 C220,21 244,16 262,28 C290,46 318,52 344,49"/>
+              <circle class="cl" cx="344" cy="49" r="5"/>
+            </svg>
+            <div class="row">peak <span class="ok">+31.2%</span> · trail armed <span class="mut">−18% from peak</span></div>
+            <div class="row big">trail hit → CLOSE +18.4%</div>
+            <div class="row mut">ledger: reason=trail · fees included · auditable</div>
+          </div>
+
+          <div class="stage" data-title="vault://pipeline/06-learn">
+            <div class="row">forward returns&nbsp;&nbsp;&nbsp;<span class="ok">logged</span> <span class="mut">· every scored token</span></div>
+            <div class="row">objective&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;realized, fee-inclusive</div>
+            <hr class="sep">
+            <div class="row">edge evidence&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n=12 / 30</div>
+            <div class="row brow"><span>gate</span><div class="bar"><i style="--w:40%"></i></div><em>40%</em></div>
+            <div class="row">ev-sizing&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="lock">⛔ LOCKED</span></div>
+            <hr class="sep">
+            <div class="row mut">kill_criterion: monitoring — an edge can be<br>declared <em>disproven</em> and disarmed again</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="stage-dots" id="stage-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+
+    <div class="loop-steps" id="loop-steps">
+      <div class="lstep cur">
+        <div class="num">01 / DISCOVER</div>
+        <h3>The sidecar watches the firehose</h3>
+        <p>A single shared discovery process polls <b>GeckoTerminal</b>, <b>DexScreener</b>, the <b>bonding-curve flow</b> — plus an optional real-time Bitquery stream — and publishes one clean snapshot of fresh candidates to the whole fleet. One poller, many bots, no rate-limit pile-ups.</p>
+      </div>
+      <div class="lstep">
+        <div class="num">02 / SCORE</div>
+        <h3>Every candidate gets a number</h3>
+        <p>Each bot scores candidates across dimensions — liquidity depth, momentum, volume acceleration, holder shape. And the score isn't a vibe: the <b>forward return of every scored token is logged</b>, so the system can later check whether its own scoring predicted anything at all.</p>
+      </div>
+      <div class="lstep">
+        <div class="num">03 / ADMIT</div>
+        <h3>Most tokens are rejected</h3>
+        <p>Admission gates filter the tape hard — too shallow, too stale, dead pool, rug pattern, quarantined. The bot is <b>selective by design</b>, and the SCOUT view shows you every skip with its reason. Nothing is hidden behind a win reel.</p>
+      </div>
+      <div class="lstep">
+        <div class="num">04 / EXECUTE</div>
+        <h3>Sized from the live wallet</h3>
+        <p>An admitted candidate is sized from the SOL <b>actually in that bot's wallet</b> — small balance, small trades — and executed through Jupiter routing with slippage guards. No leverage, no margin, no pooled funds. Your wallet is the whole story.</p>
+      </div>
+      <div class="lstep">
+        <div class="num">05 / EXIT</div>
+        <h3>Every close has a reason</h3>
+        <p>Stops, trailing exits, take-profit bands, rug-and-drain guards, dead-pool exits. The ledger records <b>why</b> each position closed — so you can audit every decision after the fact, including the ones that lost.</p>
+      </div>
+      <div class="lstep">
+        <div class="num">06 / LEARN</div>
+        <h3>The honest part</h3>
+        <p>Realized, fee-inclusive results feed a learning loop. Rules that prove out get promoted. Sizing stays <b>locked until an edge clears a pre-registered bar</b> — and a kill-criterion can declare an edge disproven and disarm it again. The system would rather stay small than fool itself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE TRUTH (simulated scout feed) ── -->
+<section id="truth">
+  <div class="wrap">
+    <div class="kicker reveal">03 · The truth</div>
+    <h2 class="reveal">Most bots show you wins.<br>Vault shows you skips.</h2>
+    <div class="truth-grid">
+      <div>
+        <p class="lead reveal">The most valuable thing in this codebase isn't a strategy — it's the discipline around it. Every claim the system makes about itself is checkable from your own ledger.</p>
+        <div class="tlist">
+          <div class="titem reveal"><span class="tk">▸</span><div><b>Forward-return logging</b><span>Everything scored gets its outcome recorded — including the tokens it didn't buy.</span></div></div>
+          <div class="titem reveal"><span class="tk">▸</span><div><b>Fee-inclusive accounting</b><span>Edges are judged on realized proceeds after fees and slippage — not on quotes.</span></div></div>
+          <div class="titem reveal"><span class="tk">▸</span><div><b>A pre-registered kill criterion</b><span>The bar for "this edge is real" is written down <em>before</em> the data comes in. No goalpost moving.</span></div></div>
+          <div class="titem reveal"><span class="tk">▸</span><div><b>The one rule</b><span>Sizing is armed only by the gates. Never by hand. Never by hype.</span></div></div>
+        </div>
+      </div>
+      <div class="term reveal">
+        <div class="term-bar">
+          <i></i><i></i><i></i>
+          <span class="term-title">vault://scout — live skip reasons</span>
+          <span class="sim">SIM</span>
+        </div>
+        <div id="feed" aria-label="Simulated scout feed, illustrative data"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RUN IT ── -->
+<section class="alt" id="run">
+  <div class="wrap">
+    <div class="kicker reveal">04 · Run your own</div>
+    <h2 class="reveal">From clone to dashboard<br>in minutes</h2>
+    <p class="lead reveal">Three commands and one free API key. The dashboard walks you through the rest — or just ask your Claude to do it.</p>
+    <div class="steps">
+      <div class="step reveal"><div class="n">1</div><div>
+        <div class="cmd"><code>git clone https://github.com/Onasidequestt/datpipboi && cd vault-bot</code><button class="copy" data-cmd="git clone https://github.com/Onasidequestt/datpipboi && cd vault-bot">copy</button></div>
+        <div class="d">Grab the code.</div>
+      </div></div>
+      <div class="step reveal"><div class="n">2</div><div>
+        <div class="cmd"><code>python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt</code><button class="copy" data-cmd="python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt">copy</button></div>
+        <div class="d">Set up Python (3.9+) and install six dependencies.</div>
+      </div></div>
+      <div class="step reveal"><div class="n">3</div><div>
+        <div class="cmd"><code>./run.sh</code><button class="copy" data-cmd="./run.sh">copy</button></div>
+        <div class="d">Opens the dashboard at <span class="mono green">localhost:8080</span>. Paste your free Helius key on the setup page, hit <b>Activate</b> on a bot — it generates a fresh wallet, shows you the address to fund, and starts trading.</div>
+      </div></div>
+    </div>
+    <p class="lead reveal" style="margin-top:30px">Prefer not to touch a terminal? Open the repo in <a href="https://claude.com/claude-code">Claude Code</a> and say <em>"set this up for me."</em> The bundled guide gives it everything it needs.</p>
+  </div>
+</section>
+
+<!-- ── TOKEN ── -->
+<section id="token">
+  <div class="wrap">
+    <div class="kicker reveal">05 · The community token</div>
+    <h2 class="reveal">$DATBOI — the flag, not a fund</h2>
+    <p class="lead reveal">$DATBOI is the community token for Dat Pip Boi — an open, transparent trading-research project. It is <b>not</b> a fund, not a managed account, and not a promise of returns. You always run your own bot on your own keys.</p>
+    <div class="token-box reveal">
+      <h3>DAT PIP BOI</h3>
+      <span class="pill">community &amp; brand</span>
+      <span class="pill">supports open development</span>
+      <span class="pill">a seat in the community</span>
+      <p style="color:var(--dim);margin:18px 0 0;position:relative;font-weight:300">Hold $DATBOI to back the project and join the community around self-sovereign, honest, open-source trading. Value comes from what the community builds and adopts — never from a return we could promise you (we can't, and we won't).</p>
+      <div class="ca">Contract: <span class="green">launching soon — address drops here on mint</span></div>
+      <div class="cta" style="justify-content:flex-start;margin-top:22px">
+        <a class="btn btn-primary" href="https://pump.fun">View on Pump.fun</a>
+        <a class="btn btn-ghost" href="https://github.com/Onasidequestt/datpipboi">Read the code</a>
+      </div>
+    </div>
+    <div class="disclaimer reveal">
+      <b>Not financial advice.</b> Dat Pip Boi is an experimental, open-source research project. The software trades real cryptocurrency on extremely volatile markets and can lose 100% of what you put in. The token is a community/utility token, not a security, not an investment contract, and carries no claim on any profits or assets. Nothing here is a solicitation or a promise of returns. Do your own research. You are solely responsible for your funds and decisions.
+    </div>
+
+    <!-- Swap the placeholder for your real banner: drop assets/banner.png, delete the .placeholder div, uncomment the line below it -->
+    <div class="banner placeholder reveal">[ drop your $DATBOI banner at assets/banner.png ]</div>
+    <!-- <div class="banner reveal"><img src="assets/banner.png" alt="$DATBOI"></div> -->
+  </div>
+</section>
+
+<!-- ── CLAUDE ── -->
+<section class="alt" id="claude">
+  <div class="wrap">
+    <div class="kicker reveal" style="justify-content:center">06 · Built to be operated</div>
+    <p class="cq reveal">"The codebase was written to be <span class="green">read, run, and operated conversationally</span>."</p>
+    <p class="lead reveal">Point <a href="https://claude.com/claude-code">Claude Code</a> at the repo and it can explain any part, walk you through setup, restart the fleet, read the dashboards, run the read-only analysis tools, and help you reason about what's working — guided by the operating manual that ships in the repo.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="flinks">
+      <a href="https://github.com/Onasidequestt/datpipboi">GitHub</a>
+      <a href="https://pump.fun">$DATBOI token</a>
+      <a href="https://t.me/SOLVaultTEC">Telegram</a>
+      <a href="https://github.com/Onasidequestt/datpipboi/blob/main/SETUP.md">Setup guide</a>
+    </div>
+    <p class="tm">Open source under the MIT License. <b>Not financial advice.</b> Experimental software that trades real money on volatile markets — you can lose everything. Built on Claude; Dat Pip Boi is an independent community project and is not affiliated with or endorsed by Anthropic or Solana. DYOR. Panels marked <span class="mono" style="color:var(--warn)">SIM</span> show illustrative data, not live results.</p>
+    <div class="wm" aria-hidden="true">DAT PIP BOI</div>
+  </div>
+</footer>
+
+<script>
+const REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ── nav shadow + scroll progress ─────────────────────────────────── */
+const nav=document.getElementById('nav');
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>12);
+  const h=document.documentElement.scrollHeight-innerHeight;
+  prog.style.width=(h>0?(scrollY/h*100):0)+'%';
+},{passive:true});
+
+/* ── hero typed boot line ─────────────────────────────────────────── */
+(function(){
+  const el=document.getElementById('typed');
+  const txt='> ./run.sh — here come dat pip boi · frog rollin in · dashboard live on :8080';
+  if(REDUCE){el.textContent=txt;return;}
+  let i=0;
+  (function type(){
+    if(i<=txt.length){el.textContent=txt.slice(0,i++);setTimeout(type,i<3?600:18+Math.random()*40)}
+  })();
+})();
+
+/* ── scroll-reveal (staggered for grids) ──────────────────────────── */
+(function(){
+  const els=[...document.querySelectorAll('.reveal')];
+  if(REDUCE||!('IntersectionObserver'in window)){els.forEach(e=>e.classList.add('in'));return;}
+  const io=new IntersectionObserver((ents)=>{
+    ents.forEach(en=>{
+      if(!en.isIntersecting)return;
+      const el=en.target;
+      const sibs=[...(el.parentElement?.children||[])].filter(c=>c.classList.contains('b-card')||c.classList.contains('stat'));
+      const i=sibs.indexOf(el);
+      el.style.transitionDelay=(i>0?i*70:0)+'ms';
+      el.classList.add('in'); io.unobserve(el);
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(e=>io.observe(e));
+})();
+
+/* ── count-up stats ───────────────────────────────────────────────── */
+(function(){
+  const els=[...document.querySelectorAll('[data-count]')];
+  if(REDUCE||!('IntersectionObserver'in window)){els.forEach(e=>e.textContent=e.dataset.count);return;}
+  const io=new IntersectionObserver(es=>{es.forEach(en=>{
+    if(!en.isIntersecting)return;io.unobserve(en.target);
+    const el=en.target,to=+el.dataset.count,t0=performance.now(),dur=950;
+    (function tick(t){
+      const p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(to*e);
+      if(p<1)requestAnimationFrame(tick);
+    })(t0);
+  })},{threshold:.6});
+  els.forEach(e=>io.observe(e));
+})();
+
+/* ── the loop: scrollytelling stage driver ────────────────────────── */
+(function(){
+  const steps=[...document.querySelectorAll('.lstep')];
+  const stages=[...document.querySelectorAll('.stage')];
+  const dots=[...document.querySelectorAll('#stage-dots i')];
+  const title=document.getElementById('stage-title');
+  if(!steps.length||!stages.length)return;
+  function setStage(i){
+    stages.forEach((s,j)=>s.classList.toggle('on',i===j));
+    steps.forEach((s,j)=>s.classList.toggle('cur',i===j));
+    dots.forEach((d,j)=>d.classList.toggle('on',i===j));
+    title.textContent=stages[i].dataset.title;
+  }
+  if(!('IntersectionObserver'in window)){setStage(0);return;}
+  const io=new IntersectionObserver(es=>{
+    es.forEach(en=>{if(en.isIntersecting)setStage(steps.indexOf(en.target))});
+  },{rootMargin:'-42% 0px -42% 0px',threshold:0});
+  steps.forEach(s=>io.observe(s));
+  setStage(0);
+})();
+
+/* ── simulated SCOUT feed (illustrative — labeled SIM in the UI) ──── */
+(function(){
+  const feed=document.getElementById('feed');
+  if(!feed)return;
+  const B58='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+  const rnd=n=>Math.random()*n|0;
+  const mint=()=>{let a='',b='';for(let i=0;i<4;i++){a+=B58[rnd(B58.length)];b+=B58[rnd(B58.length)]}return a+'…'+b};
+  const SKIPS=['liq < floor','dead pool','rug pattern','stale pair','quarantined','holder skew','no route','vol fading'];
+  let h=12,m=4,s=31;
+  function clock(){s+=2+rnd(5);if(s>59){s-=60;m++}if(m>59){m=0;h=(h+1)%24}
+    return '['+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+']'}
+  function line(){
+    const admit=rnd(7)===0;
+    const el=document.createElement('div');el.className='fl'+(admit?' adm':'');
+    el.innerHTML='<span class="tm2">'+clock()+'</span> '+mint()
+      +'  liq $'+(2+rnd(70))+'.'+rnd(9)+'k  m5 '+(rnd(2)?'+':'−')+(rnd(14)+1)+'.'+rnd(9)+'%'
+      +(admit?'  → ADMIT · score '+(66+rnd(22))+' ▸ sized ◎0.0'+(4+rnd(5))
+             :'  → skip · '+SKIPS[rnd(SKIPS.length)]);
+    return el;
+  }
+  if(REDUCE){for(let i=0;i<13;i++)feed.appendChild(line());return;}
+  let timer=null;
+  function tick(){
+    feed.appendChild(line());
+    while(feed.children.length>13)feed.removeChild(feed.firstChild);
+    timer=setTimeout(tick,650+rnd(900));
+  }
+  if('IntersectionObserver'in window){
+    new IntersectionObserver(es=>{es.forEach(en=>{
+      if(en.isIntersecting){if(!timer)tick()}
+      else if(timer){clearTimeout(timer);timer=null}
+    })},{threshold:.15}).observe(feed);
+  }else tick();
+})();
+
+/* ── copy buttons ─────────────────────────────────────────────────── */
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  navigator.clipboard&&navigator.clipboard.writeText(b.dataset.cmd).then(()=>{
+    b.textContent='copied ✓';setTimeout(()=>b.textContent='copy',1300);
+  });
+}));
+
+/* ── reactive background dot-matrix ───────────────────────────────────
+   A quiet phosphor grid. Dots sit dim; near the cursor they brighten,
+   grow a touch, and bend gently away. No trail, no spawn — just the grid
+   responding to where you are. */
+(function(){
+  const coarse=matchMedia('(pointer: coarse)').matches;
+  const cv=document.getElementById('cursor-fx');
+  if(!cv)return;
+  const ctx=cv.getContext('2d');
+  let W,H,dpr,cols,rows;
+  const S=38;                 /* grid spacing (px) */
+  const R=150, R2=R*R;        /* cursor influence radius */
+  const PUSH=5;               /* max repel distance (px) */
+  const A0=.07, A1=.85;       /* dot alpha: baseline → peak near cursor */
+  const RAD0=1.0, RAD1=2.6;   /* dot radius: baseline → peak near cursor */
+
+  function resize(){
+    dpr=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
+    cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    cols=Math.ceil(W/S)+1;rows=Math.ceil(H/S)+1;
+  }
+  resize();addEventListener('resize',resize);
+
+  /* paint the grid once, plain (reduced-motion / touch) */
+  function staticGrid(){
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='rgba(61,251,110,'+A0+')';
+    for(let gx=0;gx<cols;gx++)for(let gy=0;gy<rows;gy++){
+      ctx.beginPath();ctx.arc(gx*S,gy*S,RAD0,0,6.283);ctx.fill();
+    }
+  }
+  if(REDUCE||coarse){staticGrid();addEventListener('resize',staticGrid);return;}
+
+  /* eased cursor follow so the response feels soft, not twitchy */
+  let mx=-999,my=-999,cx=mx,cy=my;
+  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;},{passive:true});
+  addEventListener('mouseout',()=>{mx=-999;my=-999;});
+
+  function frame(){
+    cx+=(mx-cx)*.12;cy+=(my-cy)*.12;
+    ctx.clearRect(0,0,W,H);
+    for(let gx=0;gx<cols;gx++){
+      const bx=gx*S;
+      for(let gy=0;gy<rows;gy++){
+        const by=gy*S;
+        const dx=bx-cx,dy=by-cy,d2=dx*dx+dy*dy;
+        let a=A0,r=RAD0,ox=0,oy=0;
+        if(d2<R2){
+          const t=1-Math.sqrt(d2)/R;       /* 0 at edge → 1 at cursor */
+          const e=t*t;                      /* ease-in falloff */
+          a=A0+(A1-A0)*e;
+          r=RAD0+(RAD1-RAD0)*e;
+          const inv=1/(Math.sqrt(d2)||1);   /* unit vector, pushed outward */
+          ox=dx*inv*PUSH*e;oy=dy*inv*PUSH*e;
+        }
+        ctx.globalAlpha=a;
+        ctx.fillStyle='#3DFB6E';
+        ctx.beginPath();ctx.arc(bx+ox,by+oy,r,0,6.283);ctx.fill();
+      }
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Vault-bot signal_lab logger — the data feed for the evidence loop.
+     Continuous daemon (rides discovery_snapshot.json, zero trade risk): RunAtLoad + KeepAlive
+     so it restarts on crash AND survives a reboot/logout (the nohup loop does not). Records
+     every scored token's features + forward returns to shared_memory/signal_log.jsonl; the
+     brain harvests matured rows into the durable forward_obs.jsonl. S63: also records the live
+     debater verdict (dbt) and intra-hold drawdown (fwd_min) per row.
+
+     ⚠ Only ONE signal_lab --log should run. Before installing this, stop the nohup loop:
+       pkill -f "signal_lab.py --log"
+
+     Install:
+       cp deploy/com.vaultbot.signallab.plist ~/Library/LaunchAgents/
+       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.vaultbot.signallab.plist
+       launchctl enable gui/$(id -u)/com.vaultbot.signallab
+     Remove:
+       launchctl bootout gui/$(id -u)/com.vaultbot.signallab
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.vaultbot.signallab</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <string>cd /Users/onasidequest/solana-trader &amp;&amp; exec python3 signal_lab.py --log</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/onasidequest/solana-trader</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/Users/onasidequest/solana-trader/logs/signal_lab.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/onasidequest/solana-trader/logs/signal_lab.log</string>
+</dict>
+</plist>

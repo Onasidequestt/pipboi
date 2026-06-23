@@ -1,0 +1,46 @@
+# ── secrets / keys (NEVER commit) ──────────────────────────────
+.env
+.env.*
+!.env.example
+**/keypair.json
+id.json
+*.key
+*.pem
+
+# ── runtime state / data (machine-local, not source) ───────────
+*.jsonl
+*.db
+*.db-journal
+*.bak
+*.bak.*
+*.pre_*
+.s74_backups/
+.s78_backups/
+.session_backups/
+bots/**/status.json
+bots/**/positions.json
+bots/**/balance_history.jsonl
+shared_memory/
+logs/
+paper_lab/state/
+paper_lab/logs/
+paper_lab/results/
+
+# ── python cruft ───────────────────────────────────────────────
+__pycache__/
+*.pyc
+.venv/
+
+# ── misc local ─────────────────────────────────────────────────
+.autonomous_runlog_path
+.cf_tunnel.log
+.ngrok_tunnel.log
+.detect_err
+graphify-out/cache/
+
+# ── runtime stragglers (added for the public template) ─────────
+nohup.out
+fleet.json
+bot_pids.json
+*.superseded.*
+assets/*.local.*

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Vault-bot FLEET LaunchAgent — reboot/login-durable supervision of the whole fleet [execwire].
+
+     run.sh is the single entrypoint: it starts the discovery sidecar + the dashboard, and the
+     dashboard (_startup → _kill_orphans → _spawn) brings up the 3 bots. So this one agent makes
+     the ENTIRE fleet survive a reboot or re-login (RunAtLoad) and auto-recover if it dies
+     (KeepAlive). It runs the GUARDED launcher (deploy/fleet_launchd.sh), which refuses to start a
+     second fleet when port 8080 is already bound — so loading this agent while a manual fleet runs
+     can't double-launch; it simply takes over on the next throttle tick once the manual one stops.
+
+     ⚠ INSTALL DURING A CONTROLLED RESTART WINDOW (mirror the HANDOFF restart procedure):
+       1. Stop any manual fleet first:
+            pkill -f "run.sh"; pkill -f "main.py"; pkill -f "dashboard.py"; pkill -f "discovery_service.py"; pkill -f "caffeinate -dims"
+            sleep 2
+       2. Install + load:
+            cp deploy/com.vaultbot.fleet.plist ~/Library/LaunchAgents/
+            launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.vaultbot.fleet.plist
+            launchctl enable gui/$(id -u)/com.vaultbot.fleet
+       3. Verify:  launchctl print gui/$(id -u)/com.vaultbot.fleet | grep -i state   ·  curl -s localhost:8080 >/dev/null && echo up
+     Remove (back to manual run.sh):
+            launchctl bootout gui/$(id -u)/com.vaultbot.fleet
+            rm ~/Library/LaunchAgents/com.vaultbot.fleet.plist
+     Restart the fleet under the agent:
+            launchctl kickstart -k gui/$(id -u)/com.vaultbot.fleet
+
+     NOTE — this does NOT fix laptop SLEEP (lid-close on battery still sleeps; caffeinate -dims only
+     covers idle while running). For true 24/7 use `sudo pmset -a sleep 0 disablesleep 1` or a VPS.
+     The keepalive/brain/signallab/watchdog loops have their OWN plists in this dir; this agent is
+     only the trading fleet (sidecar + dashboard + bots).
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.vaultbot.fleet</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>-lc</string>
+    <string>exec /Users/onasidequest/solana-trader/deploy/fleet_launchd.sh</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/onasidequest/solana-trader</string>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ThrottleInterval</key>
+  <integer>60</integer>
+  <key>ProcessType</key>
+  <string>Interactive</string>
+  <key>StandardOutPath</key>
+  <string>/Users/onasidequest/solana-trader/logs/fleet_launchd.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/onasidequest/solana-trader/logs/fleet_launchd.log</string>
+</dict>
+</plist>

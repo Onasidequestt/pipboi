@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# vault — one-word shortcut for the $Vault status viewer.
+#
+#   ./vault              # bot 1 (the default)
+#   ./vault --all        # every bot you're running
+#   ./vault --trades 8   # more recent trades
+#
+# Want to type just `vault` from anywhere? Symlink it onto your PATH:
+#   ln -s "$PWD/vault" /usr/local/bin/vault
+#
+# (Or skip all this and just ask Claude "how's my bot?" — it runs the same thing.)
+set -euo pipefail
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+exec python3 "$DIR/vault_status.py" "$@"

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vault Bot — Setup</title>
+<style>
+  :root{ --bg:#070b07; --card:#0e140e; --line:#1c2a1c; --g:#3DFB6E; --gd:#2BCB56;
+         --txt:#dfeee2; --dim:#8aa890; --warn:#FFD27A; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--txt);
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+        line-height:1.5; padding:32px 16px; }
+  .wrap{ max-width:620px; margin:0 auto; }
+  h1{ color:var(--g); font-size:24px; letter-spacing:.04em; margin:0 0 4px; }
+  .sub{ color:var(--dim); margin:0 0 24px; font-size:14px; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:12px;
+         padding:20px; margin-bottom:16px; }
+  .card h2{ font-size:13px; text-transform:uppercase; letter-spacing:.08em;
+            color:var(--gd); margin:0 0 12px; }
+  label{ display:block; font-size:13px; color:var(--dim); margin:14px 0 6px; }
+  label .req{ color:var(--g); }
+  label .opt{ color:var(--dim); font-weight:400; }
+  input{ width:100%; padding:10px 12px; background:#060a06; color:var(--txt);
+         border:1px solid var(--line); border-radius:8px; font-size:14px;
+         font-family:ui-monospace,Menlo,monospace; }
+  input:focus{ outline:none; border-color:var(--gd); }
+  a{ color:var(--g); text-decoration:none; } a:hover{ text-decoration:underline; }
+  .hint{ font-size:12px; color:var(--dim); margin-top:6px; }
+  button{ width:100%; padding:13px; margin-top:8px; background:var(--g); color:#03120a;
+          border:0; border-radius:9px; font-size:15px; font-weight:700; cursor:pointer;
+          letter-spacing:.03em; }
+  button:hover{ background:#5bff86; } button:disabled{ opacity:.5; cursor:default; }
+  .check{ font-size:14px; color:var(--dim); margin:8px 0; }
+  .check b{ color:var(--txt); }
+  .msg{ margin-top:14px; padding:12px 14px; border-radius:8px; font-size:14px; display:none; }
+  .msg.ok{ display:block; background:#0f2417; border:1px solid #1e6b3c; color:var(--g); }
+  .msg.err{ display:block; background:#2a1410; border:1px solid #6b2a1e; color:#ffb4a0; }
+  .warn{ background:#231d0c; border:1px solid #4d3f12; color:var(--warn);
+         font-size:13px; padding:12px 14px; border-radius:8px; margin-bottom:16px; }
+  code{ font-family:ui-monospace,Menlo,monospace; color:var(--g); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>⚙ Vault Bot — Setup</h1>
+  <p class="sub">Enter your API keys to get started. Everything is saved locally to
+     your <code>.env</code> (gitignored) — nothing is sent anywhere.</p>
+
+  <div class="warn">⚠ This trades real money on volatile markets and can lose all of it.
+     Use a fresh wallet funded with only what you can afford to lose.</div>
+
+  <div class="card">
+    <h2>What you'll need</h2>
+    <div class="check">1. A <b>Helius</b> API key — free at
+       <a href="https://dashboard.helius.dev" target="_blank" rel="noopener">dashboard.helius.dev ↗</a></div>
+    <div class="check">2. <i>(Optional)</i> A <b>Bitquery</b> key for a real-time feed —
+       <a href="https://account.bitquery.io" target="_blank" rel="noopener">account.bitquery.io ↗</a></div>
+    <div class="check">3. Your dashboard <b>PIN</b> (printed in the terminal when you ran
+       <code>./run.sh</code>).</div>
+  </div>
+
+  <div class="card">
+    <h2>Configure</h2>
+
+    <label>Dashboard PIN <span class="req">*</span></label>
+    <input id="pin" type="password" autocomplete="off" placeholder="from your terminal">
+    <div class="hint">Authorizes saving. Shown in the terminal output of <code>./run.sh</code>.</div>
+
+    <label>Helius API key <span class="req">*</span></label>
+    <input id="helius" type="text" autocomplete="off" placeholder="your Helius key">
+    <div class="hint">Get one free → <a href="https://dashboard.helius.dev" target="_blank" rel="noopener">dashboard.helius.dev</a></div>
+
+    <label>Bitquery API key <span class="opt">(optional)</span></label>
+    <input id="bitquery" type="text" autocomplete="off" placeholder="leave blank to skip">
+    <div class="hint">Real-time candidate feed → <a href="https://account.bitquery.io" target="_blank" rel="noopener">account.bitquery.io</a></div>
+
+    <label>Custom RPC node <span class="opt">(optional)</span></label>
+    <input id="rpc" type="text" autocomplete="off" placeholder="leave blank to use Helius">
+
+    <label>Max capital reference (USD) <span class="opt">(optional)</span></label>
+    <input id="capital" type="text" autocomplete="off" placeholder="100.0">
+
+    <button id="save" onclick="save()">Save & continue</button>
+    <div id="msg" class="msg"></div>
+  </div>
+</div>
+
+<script>
+async function save(){
+  const btn = document.getElementById('save');
+  const msg = document.getElementById('msg');
+  const pin = document.getElementById('pin').value.trim();
+  const helius = document.getElementById('helius').value.trim();
+  msg.className = 'msg';
+  if(!pin){ show('err','Enter your dashboard PIN (from the terminal).'); return; }
+  if(!helius){ show('err','A Helius API key is required.'); return; }
+  btn.disabled = true; btn.textContent = 'Saving…';
+  try{
+    const r = await fetch('/api/setup', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json', 'X-Dashboard-Secret': pin },
+      body: JSON.stringify({
+        helius,
+        bitquery: document.getElementById('bitquery').value.trim(),
+        rpc: document.getElementById('rpc').value.trim(),
+        capital: document.getElementById('capital').value.trim() || '100.0',
+      })
+    });
+    if(r.status === 401){ show('err','PIN incorrect.'); return; }
+    if(r.status === 429){ show('err','Too many attempts — wait a moment.'); return; }
+    const d = await r.json();
+    if(!d.ok){ show('err', d.error || 'Save failed.'); return; }
+    show('ok','✓ Saved! Now restart the fleet to apply: press Ctrl-C in the terminal, '
+            + 'run ./run.sh again, then reload this page. Your dashboard will appear — '
+            + 'click Activate on a bot to generate a wallet and start trading.');
+    btn.textContent = 'Saved ✓';
+  }catch(e){
+    show('err','Network error — is the fleet running?');
+  }finally{
+    if(btn.textContent === 'Saving…'){ btn.disabled = false; btn.textContent = 'Save & continue'; }
+  }
+}
+function show(kind, text){
+  const msg = document.getElementById('msg');
+  msg.className = 'msg ' + kind; msg.textContent = text;
+}
+</script>
+</body>
+</html>
