@@ -1,10 +1,16 @@
 <div align="center">
 
-# ⚙ Vault Bot
+<img src="assets/datboi-logo.png" alt="Dat Pip Boi" width="150">
 
-**An autonomous Solana memecoin trading fleet — with a live terminal dashboard,
-an evidence-gated learning loop, and a design that lets you run and operate it
-through your own Claude.**
+# 🐸 Dat Pip Boi
+
+**An open-source autonomous Solana memecoin vault you run yourself — your wallet,
+your keys, your machine — with a live Pip-Boy terminal dashboard, an
+evidence-gated learning loop, and a design built to be operated through your own Claude.**
+
+[🌐 Live site](https://onasidequestt.github.io/datpipboi/) · [📥 Download](https://github.com/Onasidequestt/datpipboi) · [MIT License](LICENSE)
+
+*o shit waddup — dat pip boi rollin' in.*
 
 </div>
 
@@ -15,23 +21,24 @@ through your own Claude.**
 > This is an **experimental trading research platform**, not a money printer.
 > It trades real SOL on some of the most volatile markets that exist (freshly
 > launched memecoins). **You can — and likely will — lose money.** The system's
-> own built-in verdict tools (`kill_criterion.py`, `prove_edge.py`) are there
+> own built-in verdict tools (`kill_criterion.py`, `prove_edge.py`) exist
 > precisely because a durable, positive edge is *hard* and often unproven on
 > free data.
 >
 > Treat this as a platform to **learn, paper-trade, and research** autonomous
 > trading — not as financial advice. Run it on a **fresh wallet funded with an
 > amount you can afford to lose entirely.** You are solely responsible for your
-> own funds and decisions.
+> own funds and decisions. **`$DATBOI` is a community token, not a fund and not
+> a promise of returns.**
 
 ---
 
 ## What it is
 
-Vault Bot is a self-contained autonomous trading system for Solana memecoins:
+Dat Pip Boi is a self-contained autonomous trading system for Solana memecoins:
 
-- **A fleet of trading bots** (up to 6) that discover, score, size, and exit
-  positions on their own, each on its own wallet.
+- **A fleet of trading bots** that discover, score, size, and exit positions on
+  their own, each on its own wallet.
 - **A shared discovery sidecar** that streams candidate tokens from multiple
   free data sources (GeckoTerminal, DexScreener, bonding-curve flow, optional
   Bitquery) so the fleet isn't starved.
@@ -56,8 +63,8 @@ architecture, the operating rules, and the safety boundaries.
 ## Quickstart
 
 ```bash
-git clone https://github.com/<your-github-username>/vault-bot.git
-cd vault-bot
+git clone https://github.com/Onasidequestt/datpipboi.git
+cd datpipboi
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ./run.sh                      # opens the dashboard at http://localhost:8080
@@ -75,8 +82,7 @@ pip install -r requirements.txt
 - **⌨️ In the terminal:** `python3 setup.py` runs an interactive wizard.
 
 Then in the dashboard, click **Activate** on a bot — it **generates a fresh
-wallet, shows you the address to fund, and starts logging trades.** Your
-dashboard **PIN** (to unlock admin actions) is printed when you run `./run.sh`.
+wallet, shows you the address to fund, and starts logging trades.**
 
 👉 **Full step-by-step (wallet, keys, funding, operating):** see [SETUP.md](SETUP.md).
 
@@ -87,7 +93,7 @@ English** — *"how's my bot doing?"* — and it prints one clean card right in 
 
 ```text
 ╔══════════════════════════════════════════════════════════════╗
-║  $VAULT · BOT 1                                     ● ONLINE ║
+║  $DATBOI · DAT PIP BOI                               ● ONLINE ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  WALLET        ◎ 0.8007                                      ║
 ║  TO PRESTIGE   ◎ 2.0                                         ║
@@ -108,9 +114,8 @@ recent trade **with the reason it closed**. Prefer the terminal? Same thing, one
 ./vault            # bot 1     ·     ./vault --all     ·     ./vault --trades 8
 ```
 
-It's read-only — safe to run any time, trading or stopped. ([`CLAUDE.md`](CLAUDE.md)
-tells Claude to run it whenever you ask about the bot.) For the full graphical
-view, the dashboard is still at **http://localhost:8080**.
+It's read-only — safe to run any time, trading or stopped. For the full graphical
+view, the dashboard is at **http://localhost:8080**.
 
 ## How it fits together
 
@@ -152,12 +157,12 @@ See [CLAUDE.md](CLAUDE.md) for the full map.
 | `main.py`, `observer.py`, `stoic_strategy.py` | the trading core (loop, scoring, exits) |
 | `discovery_service.py`, `discovery.py`, `dexscreener.py`, `bonding_curve.py` | candidate discovery |
 | `wallet.py`, `jupiter.py`, `helius.py`, `safety.py` | execution + chain plumbing |
-| `signal_lab.py`, `strategy_brain.py`, `live_rule.py`, `ev_sizing.py` | the evidence / learning loop |
+| `signal_lab.py`, `strategy_brain.py`, `live_rule.py` | the evidence / learning loop |
 | `prestige_tracker.py`, `arm_genes.py`, `kill_criterion.py`, `prove_edge.py` | gates + read-only verdict tools |
 | `dashboard.py`, `templates/` | the live web dashboard |
 | `config.py`, `config/` | configuration |
 | `deploy/` | optional macOS LaunchAgents (reboot-durable uptime) |
-| `agents/`, `telegram/` | optional: advisory Claude agents · public Telegram bridge |
+| `docs/` | the Dat Pip Boi project site (served via GitHub Pages) |
 | `test_*.py` | unit tests |
 
 ## Safety & secrets
@@ -168,6 +173,15 @@ See [CLAUDE.md](CLAUDE.md) for the full map.
   prevent it — keep it that way.
 - The bot can only ever spend the SOL in the wallet you point it at. **Fund it
   with little. Start in observation, watch the dashboard, learn the system.**
+
+## $DATBOI
+
+`$DATBOI` is the **community token** for Dat Pip Boi — a flag for an open,
+honest, self-hostable trading-research project. It is **not a fund**, not a
+managed account, and **not a promise of returns**. Value, if any, comes from
+what the community builds and adopts. The bot above is the real, working
+product; the token is the community around it. Always run your own bot on your
+own keys.
 
 ## License
 

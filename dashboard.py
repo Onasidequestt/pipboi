@@ -466,8 +466,7 @@ _ASSET_TYPES = {
     ".svg": "image/svg+xml",
 }
 _ASSET_ALLOW = {
-    "vault-logo.png", "vault-logo.svg",
-    "vault-mark.png", "vault-mark.svg",
+    "datboi-logo.png", "datboi-favicon-256.png", "frog-icon.png",
 }
 
 
@@ -485,7 +484,7 @@ async def asset(fname: str):
 
 @app.get("/favicon.ico")
 async def favicon():
-    return FileResponse(Path("assets") / "vault-mark.png", media_type="image/png")
+    return FileResponse(Path("assets") / "frog-icon.png", media_type="image/png")
 
 
 @app.post("/api/auth")
