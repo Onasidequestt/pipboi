@@ -376,6 +376,83 @@
   </div>
 </div>
 
+<!-- ── LIVE DASHBOARD PREVIEW (the full Pip-Boy cockpit) ── -->
+<section class="alt" id="live">
+  <div class="wrap">
+    <div class="pb-head reveal">
+      <div class="kicker" style="margin:0">◉ &nbsp;The live view</div>
+      <span class="pb-badge">PREVIEW · representative, not a live feed</span>
+    </div>
+    <h2 class="reveal">The cockpit you<br>actually run</h2>
+    <p class="lead reveal">This is the real Pip-Boy terminal: your vault at the center, every open ride orbiting it, the trades it's made, and the rugs it researched and <em>walked away from</em> — all on your own machine. Here's what a session in motion looks like.</p>
+
+    <div class="pb-frame reveal">
+      <!-- command bar -->
+      <div class="pb-bar">
+        <div class="pb-tile state"><div class="pb-k">LIVE STATE</div><div class="pb-v g"><span class="pb-dot"></span>O SHIT WADDUP</div><div class="pb-s">🐸 riding MOODENG +47% · +4 more</div></div>
+        <div class="pb-tile"><div class="pb-k">VAULT</div><div class="pb-v">◎1.63</div><div class="pb-s">BE1M…BvLB</div></div>
+        <div class="pb-tile"><div class="pb-k">SINCE DAY 0</div><div class="pb-v r">−0.06◎</div><div class="pb-s">honest · wins &amp; losses</div></div>
+        <div class="pb-tile"><div class="pb-k">PROOF WINDOW</div><div class="pb-v">5.2<span style="color:var(--faint);font-size:15px">/10</span></div><div class="pb-s">4.8 days left</div></div>
+        <div class="pb-tile"><div class="pb-k">LAST TRADE</div><div class="pb-v">12m ago</div><div class="pb-s">SLERF +0.011◎</div></div>
+      </div>
+      <!-- three columns -->
+      <div class="pb-grid">
+        <!-- live positions -->
+        <div class="pb-col">
+          <h4>◉ LIVE POSITIONS</h4>
+          <div class="pb-pos"><div class="row1"><span class="nm">MOODENG</span><span class="pc g">+47%</span></div><div class="pb-pbar"><i class="g" style="width:80%"></i></div><div class="pb-meta">◎0.041 in · pk +51% · $88k liq</div><div class="pb-chips"><span class="pb-chip">📣 whale</span><span class="pb-chip">🌐 site</span><span class="pb-chip">🚀 runner</span><span class="pb-chip">high</span></div></div>
+          <div class="pb-pos"><div class="row1"><span class="nm">WIF</span><span class="pc g">+24%</span></div><div class="pb-pbar"><i class="g" style="width:56%"></i></div><div class="pb-meta">◎0.038 in · pk +29% · $61k liq</div><div class="pb-chips"><span class="pb-chip">🟡 dossier</span><span class="pb-chip">📣 whale</span><span class="pb-chip">high</span></div></div>
+          <div class="pb-pos"><div class="row1"><span class="nm">BONK</span><span class="pc r">−3%</span></div><div class="pb-pbar"><i class="r" style="width:18%"></i></div><div class="pb-meta">◎0.033 in · pk +6% · $120k liq</div><div class="pb-chips"><span class="pb-chip">🌐 site</span><span class="pb-chip">mid</span></div></div>
+        </div>
+        <!-- vault core orbit -->
+        <div class="pb-col" style="display:flex;flex-direction:column">
+          <h4>◆ VAULT CORE · 5 RIDING</h4>
+          <div class="vc-stage" style="margin:auto" role="img" aria-label="Representative preview of the live vault dashboard: a glowing core showing the vault total with five open trades orbiting it.">
+            <span class="vc-hud tl"></span><span class="vc-hud tr"></span><span class="vc-hud bl"></span><span class="vc-hud br"></span>
+            <div class="vc-radar"></div>
+            <div class="vc-ring r1"></div><div class="vc-ring r2"></div><div class="vc-ring r3"></div>
+            <div class="orb up" style="--r:calc(var(--S)*.30);--dur:19s;--delay:0s"><div class="pin"><div class="node"><span class="dot"></span><span class="tag">MOODENG <b>+47%</b></span></div></div></div>
+            <div class="orb up" style="--r:calc(var(--S)*.30);--dur:24s;--delay:-9s"><div class="pin"><div class="node"><span class="dot"></span><span class="tag">WIF <b>+24%</b></span></div></div></div>
+            <div class="orb up" style="--r:calc(var(--S)*.42);--dur:30s;--delay:-4s"><div class="pin"><div class="node"><span class="dot"></span><span class="tag">POPCAT <b>+11%</b></span></div></div></div>
+            <div class="orb dn" style="--r:calc(var(--S)*.42);--dur:27s;--delay:-16s"><div class="pin"><div class="node"><span class="dot"></span><span class="tag">BONK <b>−3%</b></span></div></div></div>
+            <div class="orb dn" style="--r:calc(var(--S)*.30);--dur:22s;--delay:-13s"><div class="pin"><div class="node"><span class="dot"></span><span class="tag">PNUT <b>−8%</b></span></div></div></div>
+            <div class="vc-core">
+              <span class="vc-lbl">THE VAULT</span>
+              <span class="vc-num">1.63&#9678;</span>
+              <span class="vc-sub">5 riding</span>
+            </div>
+          </div>
+        </div>
+        <!-- past trades -->
+        <div class="pb-col">
+          <h4>↻ PAST TRADES · NET +0.012◎</h4>
+          <div class="pb-scan">🔭 <b>LIVE · scanning the tape</b> — just rejected (protecting capital): WEN <span class="x">✕</span> liq $1.5k&lt;$25k · MLG <span class="x">✕</span> m5 0&lt;10</div>
+          <div class="pb-tr"><span class="tk">▲ SLERF <span class="pk">pk31%</span></span><span class="up">+29%</span><span class="up">+0.011</span><span class="tm">8m</span></div>
+          <div class="pb-tr"><span class="tk">▲ MEW</span><span class="up">+6%</span><span class="up">+0.002</span><span class="tm">21m</span></div>
+          <div class="pb-tr"><span class="tk">▼ HOBBES</span><span class="dn">−12%</span><span class="dn">−0.004</span><span class="tm">40m</span></div>
+          <div class="pb-tr"><span class="tk">▲ GIGA <span class="pk">pk18%</span></span><span class="up">+14%</span><span class="up">+0.005</span><span class="tm">1h</span></div>
+          <div class="pb-tr"><span class="tk">▼ RETARDIO</span><span class="dn">−22%</span><span class="dn">−0.007</span><span class="tm">1h</span></div>
+          <div class="pb-tr"><span class="tk">▲ MICHI</span><span class="up">+4%</span><span class="up">+0.001</span><span class="tm">2h</span></div>
+          <div class="pb-tr"><span class="tk">▲ BODEN <span class="pk">pk9%</span></span><span class="up">+7%</span><span class="up">+0.002</span><span class="tm">2h</span></div>
+          <div class="pb-tr"><span class="tk">▼ ZACK</span><span class="dn">−8%</span><span class="dn">−0.003</span><span class="tm">3h</span></div>
+        </div>
+      </div>
+      <!-- telemetry -->
+      <div class="pb-tele">
+        <span>◆ DEEP DIVE STARSHIT: <span class="av">● avoid (88%)</span> — low-effort 'Starship' parody, no original angle…</span>
+        <span>◆ DEEP DIVE AntiFlock: <span class="nm">● normal (64%)</span> — a 36-min-old pump.fun token, thin but clean…</span>
+      </div>
+    </div>
+
+    <div class="vc-legend reveal" style="margin-top:14px">
+      <span><i style="background:var(--g);box-shadow:0 0 8px var(--g)"></i>up</span>
+      <span><i style="background:var(--red);box-shadow:0 0 8px var(--red)"></i>down</span>
+      <span>numbers shown are a representative preview — run it for your own real, honest dashboard</span>
+    </div>
+    <div class="cta reveal" style="margin-top:18px"><a class="btn btn-primary" href="https://github.com/Onasidequestt/datpipboi">&#128229; Run your own frog</a></div>
+  </div>
+</section>
+
 <!-- ── WHAT IT IS ── -->
 <section id="what">
   <div class="wrap">
@@ -612,90 +689,94 @@
 #frogcam .fc-risk{font-size:12px;color:var(--faint)}
 
 /* ── VAULT CORE — orbiting-trades preview (representative, not a live feed) ── */
-#frogcam .vc-wrap{margin:26px 0 30px}
-#frogcam .vc-head{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-#frogcam .vc-head .vc-ttl{font-family:'VT323',monospace;letter-spacing:.12em;font-size:15px;color:var(--dim)}
-#frogcam .vc-badge{font-family:'VT323',monospace;font-size:12px;letter-spacing:.1em;color:var(--warn);border:1px solid rgba(255,210,122,.4);border-radius:999px;padding:2px 10px;background:rgba(255,210,122,.06)}
-#frogcam .vc-stage{position:relative;width:min(440px,86vw);aspect-ratio:1;margin:0 auto;border:1px solid var(--line2);border-radius:18px;
+.vc-wrap{margin:26px 0 30px}
+.vc-head{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.vc-head .vc-ttl{font-family:'VT323',monospace;letter-spacing:.12em;font-size:15px;color:var(--dim)}
+.vc-badge{font-family:'VT323',monospace;font-size:12px;letter-spacing:.1em;color:var(--warn);border:1px solid rgba(255,210,122,.4);border-radius:999px;padding:2px 10px;background:rgba(255,210,122,.06)}
+.vc-stage{--S:min(440px,86vw);position:relative;width:var(--S);aspect-ratio:1;margin:0 auto;border:1px solid var(--line2);border-radius:18px;
   background:radial-gradient(circle at 50% 50%,rgba(61,251,110,.07),rgba(4,7,4,0) 62%),var(--card);overflow:hidden}
-#frogcam .vc-stage::before{content:"";position:absolute;inset:0;background:
+.vc-stage::before{content:"";position:absolute;inset:0;background:
   linear-gradient(rgba(61,251,110,.05) 1px,transparent 1px) 0 0/100% 34px,
   linear-gradient(90deg,rgba(61,251,110,.05) 1px,transparent 1px) 0 0/34px 100%;opacity:.5;mask:radial-gradient(circle at 50% 50%,#000 40%,transparent 78%)}
 /* HUD corner ticks */
-#frogcam .vc-hud{position:absolute;width:18px;height:18px;border:2px solid var(--gd);opacity:.55}
-#frogcam .vc-hud.tl{top:12px;left:12px;border-right:0;border-bottom:0}
-#frogcam .vc-hud.tr{top:12px;right:12px;border-left:0;border-bottom:0}
-#frogcam .vc-hud.bl{bottom:12px;left:12px;border-right:0;border-top:0}
-#frogcam .vc-hud.br{bottom:12px;right:12px;border-left:0;border-top:0}
+.vc-hud{position:absolute;width:18px;height:18px;border:2px solid var(--gd);opacity:.55}
+.vc-hud.tl{top:12px;left:12px;border-right:0;border-bottom:0}
+.vc-hud.tr{top:12px;right:12px;border-left:0;border-bottom:0}
+.vc-hud.bl{bottom:12px;left:12px;border-right:0;border-top:0}
+.vc-hud.br{bottom:12px;right:12px;border-left:0;border-top:0}
 /* radar sweep */
-#frogcam .vc-radar{position:absolute;inset:8%;border-radius:50%;
+.vc-radar{position:absolute;inset:8%;border-radius:50%;
   background:conic-gradient(from 0deg,rgba(61,251,110,.22),rgba(61,251,110,0) 42%);
   animation:vc-spin 6s linear infinite;mix-blend-mode:screen}
 /* orbit rings */
-#frogcam .vc-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:1px dashed rgba(61,251,110,.16);border-radius:50%}
-#frogcam .vc-ring.r1{width:42%;height:42%}
-#frogcam .vc-ring.r2{width:64%;height:64%}
-#frogcam .vc-ring.r3{width:86%;height:86%}
+.vc-ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:1px dashed rgba(61,251,110,.16);border-radius:50%}
+.vc-ring.r1{width:42%;height:42%}
+.vc-ring.r2{width:64%;height:64%}
+.vc-ring.r3{width:86%;height:86%}
 /* the pulsing core */
-#frogcam .vc-core{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38%;height:38%;border-radius:50%;
+.vc-core{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38%;height:38%;border-radius:50%;
   display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
   background:radial-gradient(circle at 50% 42%,rgba(61,251,110,.28),rgba(11,18,11,.9) 70%);
   border:1px solid rgba(61,251,110,.5);box-shadow:0 0 40px rgba(61,251,110,.32),inset 0 0 24px rgba(61,251,110,.18);animation:vc-pulse 3.4s var(--ease) infinite}
-#frogcam .vc-core .vc-lbl{font-family:'VT323',monospace;font-size:13px;letter-spacing:.14em;color:var(--dim)}
-#frogcam .vc-core .vc-num{font-family:'VT323',monospace;font-size:clamp(30px,8vw,46px);line-height:1;color:var(--g);text-shadow:0 0 18px rgba(61,251,110,.5)}
-#frogcam .vc-core .vc-sub{font-family:'VT323',monospace;font-size:13px;color:var(--ghi);letter-spacing:.06em}
+.vc-core .vc-lbl{font-family:'VT323',monospace;font-size:13px;letter-spacing:.14em;color:var(--dim)}
+.vc-core .vc-num{font-family:'VT323',monospace;font-size:clamp(30px,8vw,46px);line-height:1;color:var(--g);text-shadow:0 0 18px rgba(61,251,110,.5)}
+.vc-core .vc-sub{font-family:'VT323',monospace;font-size:13px;color:var(--ghi);letter-spacing:.06em}
 /* orbiting trade nodes */
-#frogcam .orb{position:absolute;inset:0;animation:vc-spin var(--dur) linear infinite;animation-delay:var(--delay,0s)}
-#frogcam .orb .pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) translateY(calc(-1 * var(--r)))}
-#frogcam .orb .node{animation:vc-spin-rev var(--dur) linear infinite;animation-delay:var(--delay,0s);display:flex;align-items:center;gap:6px;white-space:nowrap}
-#frogcam .orb .dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
-#frogcam .orb .tag{font-family:'VT323',monospace;font-size:15px;letter-spacing:.02em}
-#frogcam .orb.up .dot{background:var(--g);box-shadow:0 0 12px var(--g)}
-#frogcam .orb.up .tag{color:var(--ghi)}
-#frogcam .orb.up .tag b{color:var(--g)}
-#frogcam .orb.dn .dot{background:var(--red);box-shadow:0 0 12px var(--red)}
-#frogcam .orb.dn .tag{color:#f4c3c3}
-#frogcam .orb.dn .tag b{color:var(--red)}
-#frogcam .vc-legend{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:14px;font-family:'VT323',monospace;font-size:14px;color:var(--dim)}
-#frogcam .vc-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.orb{position:absolute;inset:0;animation:vc-spin var(--dur) linear infinite;animation-delay:var(--delay,0s)}
+.orb .pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) translateY(calc(-1 * var(--r)))}
+.orb .node{animation:vc-spin-rev var(--dur) linear infinite;animation-delay:var(--delay,0s);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.orb .dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+.orb .tag{font-family:'VT323',monospace;font-size:15px;letter-spacing:.02em}
+.orb.up .dot{background:var(--g);box-shadow:0 0 12px var(--g)}
+.orb.up .tag{color:var(--ghi)}
+.orb.up .tag b{color:var(--g)}
+.orb.dn .dot{background:var(--red);box-shadow:0 0 12px var(--red)}
+.orb.dn .tag{color:#f4c3c3}
+.orb.dn .tag b{color:var(--red)}
+.vc-legend{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:14px;font-family:'VT323',monospace;font-size:14px;color:var(--dim)}
+.vc-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+/* ── LIVE DASHBOARD PREVIEW (the full Pip-Boy cockpit, representative) ── */
+#live .pb-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+#live .pb-badge{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--warn);border:1px solid rgba(255,210,122,.4);border-radius:999px;padding:2px 10px;background:rgba(255,210,122,.06)}
+#live .pb-frame{border:1px solid var(--line2);border-radius:18px;background:linear-gradient(rgba(61,251,110,.03),rgba(4,7,4,0)),var(--card);padding:16px;margin-top:18px;box-shadow:inset 0 0 70px rgba(61,251,110,.05)}
+#live .pb-bar{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+#live .pb-tile{border:1px solid var(--line);border-radius:12px;background:var(--card2);padding:11px 14px;min-width:0}
+#live .pb-tile.state{border-color:rgba(61,251,110,.5);box-shadow:0 0 18px rgba(61,251,110,.12)}
+#live .pb-k{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--dim)}
+#live .pb-v{font-family:var(--mono);font-size:23px;color:var(--txt);line-height:1.1;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#live .pb-v.g{color:var(--g);text-shadow:0 0 12px rgba(61,251,110,.4)} #live .pb-v.r{color:var(--red)}
+#live .pb-s{font-family:var(--mono);font-size:13px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#live .pb-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--g);box-shadow:0 0 10px var(--g);margin-right:7px;vertical-align:middle;animation:vc-pulse 2.6s infinite}
+#live .pb-grid{display:grid;grid-template-columns:1fr 1.45fr 1fr;gap:12px}
+#live .pb-col{border:1px solid var(--line);border-radius:12px;background:var(--card2);padding:12px;min-width:0}
+#live .pb-col h4{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--g2);margin:0 0 10px}
+#live .pb-pos{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:9px}
+#live .pb-pos .row1{display:flex;justify-content:space-between;font-family:var(--mono);font-size:16px}
+#live .pb-pos .nm{color:var(--txt)} #live .pb-pos .pc.g{color:var(--g)} #live .pb-pos .pc.r{color:var(--red)}
+#live .pb-pbar{height:6px;border-radius:5px;background:var(--line2);margin:8px 0;overflow:hidden}
+#live .pb-pbar i{display:block;height:100%} #live .pb-pbar i.g{background:var(--g);box-shadow:0 0 8px var(--g)} #live .pb-pbar i.r{background:var(--red)}
+#live .pb-meta{font-family:var(--mono);font-size:12px;color:var(--faint)}
+#live .pb-chips{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+#live .pb-chip{font-family:var(--mono);font-size:11px;color:var(--dim);border:1px solid var(--line2);border-radius:6px;padding:1px 6px}
+#live .pb-scan{font-family:var(--mono);font-size:12px;color:var(--dim);border:1px dashed var(--line2);border-radius:8px;padding:7px 9px;margin-bottom:9px;line-height:1.5}
+#live .pb-scan b{color:var(--g2)} #live .pb-scan .x{color:var(--red)}
+#live .pb-tr{display:grid;grid-template-columns:1.5fr .7fr .8fr .6fr;align-items:center;gap:6px;font-family:var(--mono);font-size:14px;padding:5px 2px;border-bottom:1px solid var(--line)}
+#live .pb-tr:last-child{border-bottom:0}
+#live .pb-tr .tk{color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis} #live .pb-tr .pk{font-size:10px;color:var(--warn)}
+#live .pb-tr .up{color:var(--g)} #live .pb-tr .dn{color:var(--red)} #live .pb-tr .tm{color:var(--faint);text-align:right;font-size:12px}
+#live .pb-tele{margin-top:12px;border-top:1px solid var(--line);padding-top:10px;font-family:var(--mono);font-size:12px;color:var(--dim);display:flex;gap:22px;flex-wrap:wrap}
+#live .pb-tele .av{color:var(--red)} #live .pb-tele .nm{color:var(--warn)}
+@media(max-width:820px){#live .pb-bar{grid-template-columns:1fr 1fr}#live .pb-grid{grid-template-columns:1fr}}
 @keyframes vc-spin{to{transform:rotate(360deg)}}
 @keyframes vc-spin-rev{to{transform:rotate(-360deg)}}
 @keyframes vc-pulse{0%,100%{box-shadow:0 0 36px rgba(61,251,110,.28),inset 0 0 22px rgba(61,251,110,.16)}50%{box-shadow:0 0 56px rgba(61,251,110,.42),inset 0 0 30px rgba(61,251,110,.24)}}
-@media(prefers-reduced-motion:reduce){#frogcam .vc-radar,#frogcam .orb,#frogcam .orb .node,#frogcam .vc-core{animation:none}}
+@media(prefers-reduced-motion:reduce){.vc-radar,.orb,.orb .node,.vc-core{animation:none}}
 </style>
 <section id="frogcam">
   <div class="wrap">
     <div class="kicker reveal">⧗ &nbsp;Frog cam</div>
     <h2 class="reveal">Watch dat boi roll —<br>live &amp; honest.</h2>
     <p class="lead reveal">Most projects show you a chart. We show you the bot's actual scoreboard — the proof-window clock, the real vault, and its honest log: wins, faceplants, and the rugs it researched and <em>walked away from</em>.</p>
-
-    <!-- VAULT CORE — orbiting-trades preview of the live dashboard -->
-    <div class="vc-wrap reveal">
-      <div class="vc-head">
-        <span class="vc-ttl">▣ VAULT CORE — the dashboard you run</span>
-        <span class="vc-badge">PREVIEW · representative, not live</span>
-      </div>
-      <div class="vc-stage" role="img" aria-label="Representative preview of the live vault dashboard: a glowing core showing the vault total with five open trades orbiting it.">
-        <span class="vc-hud tl"></span><span class="vc-hud tr"></span><span class="vc-hud bl"></span><span class="vc-hud br"></span>
-        <div class="vc-radar"></div>
-        <div class="vc-ring r1"></div><div class="vc-ring r2"></div><div class="vc-ring r3"></div>
-        <div class="orb up" style="--r:31%;--dur:19s;--delay:0s"><div class="pin"><div class="node"><span class="dot"></span><span class="tag">MOODENG <b>+47%</b></span></div></div></div>
-        <div class="orb up" style="--r:31%;--dur:24s;--delay:-9s"><div class="pin"><div class="node"><span class="dot"></span><span class="tag">WIF <b>+24%</b></span></div></div></div>
-        <div class="orb up" style="--r:43%;--dur:30s;--delay:-4s"><div class="pin"><div class="node"><span class="dot"></span><span class="tag">POPCAT <b>+11%</b></span></div></div></div>
-        <div class="orb dn" style="--r:43%;--dur:27s;--delay:-16s"><div class="pin"><div class="node"><span class="dot"></span><span class="tag">BONK <b>−3%</b></span></div></div></div>
-        <div class="orb dn" style="--r:31%;--dur:22s;--delay:-13s"><div class="pin"><div class="node"><span class="dot"></span><span class="tag">PNUT <b>−8%</b></span></div></div></div>
-        <div class="vc-core">
-          <span class="vc-lbl">THE VAULT</span>
-          <span class="vc-num">1.63&#9678;</span>
-          <span class="vc-sub">5 riding</span>
-        </div>
-      </div>
-      <div class="vc-legend">
-        <span><i style="background:var(--g);box-shadow:0 0 8px var(--g)"></i>up</span>
-        <span><i style="background:var(--red);box-shadow:0 0 8px var(--red)"></i>down</span>
-        <span>each orbit = an open ride · center = the live vault total</span>
-      </div>
-    </div>
 
     <div class="fc-grid">
       <div class="fc-clock reveal">
