@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Dat Pip Boi — terminal status viewer.
+DATBOI — terminal status viewer.
 
 The simplest way to check on your bot: just ask Claude "how's my bot doing?"
 and it runs this. No web server, no browser, no localhost — a clean readout
@@ -28,7 +28,7 @@ PRESTIGE_GOAL = 2.0  # ◎ — a bot "graduates" (prestiges) when it doubles to 
 _TTY = sys.stdout.isatty() and os.environ.get("NO_COLOR") is None
 def _c(code: str) -> str:
     return code if _TTY else ""
-GREEN  = _c("\033[38;5;48m")   # vivid phosphor green (Dat Pip Boi)
+GREEN  = _c("\033[38;5;48m")   # vivid phosphor green (DATBOI)
 DIM    = _c("\033[38;5;65m")   # muted green
 CORAL  = _c("\033[38;5;210m")  # soft loss coral (never alarm-red)
 WHITE  = _c("\033[38;5;255m")
@@ -159,7 +159,7 @@ def render_bot(bot: int, n_trades: int = 5) -> str:
     top = f"{DIM}╔{'═' * (W + 2)}╗{RST}"
     mid = f"{DIM}╠{'═' * (W + 2)}╣{RST}"
     _suffix = f" · bot {bot}" if bot != 1 else ""
-    bot_lbl = f"{BOLD}{GREEN}DAT PIP BOI{RST}{DIM}{_suffix}{RST}"
+    bot_lbl = f"{BOLD}{GREEN}DATBOI{RST}{DIM}{_suffix}{RST}"
 
     if st is None:
         out.append(top)
@@ -272,7 +272,7 @@ def _discover_bots():
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Dat Pip Boi terminal status viewer (read-only)")
+    ap = argparse.ArgumentParser(description="DATBOI terminal status viewer (read-only)")
     ap.add_argument("--bot", type=int, default=1, help="which bot (default 1)")
     ap.add_argument("--all", action="store_true", help="show every bot found")
     ap.add_argument("--trades", type=int, default=5, help="recent trades to show")

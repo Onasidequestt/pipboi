@@ -1,16 +1,16 @@
 <div align="center">
 
-<img src="assets/datboi-logo.png" alt="Dat Pip Boi" width="150">
+<img src="assets/datboi-logo.png" alt="DATBOI" width="150">
 
-# 🐸 Dat Pip Boi
+# 🐸 DATBOI
 
 **An open-source autonomous Solana memecoin vault you run yourself — your wallet,
-your keys, your machine — with a live Pip-Boy terminal dashboard, an
+your keys, your machine — with a live DATBOI terminal dashboard, an
 evidence-gated learning loop, and a design built to be operated through your own Claude.**
 
 [🌐 Live site](https://onasidequestt.github.io/datpipboi/) · [📥 Download](https://github.com/Onasidequestt/datpipboi) · [MIT License](LICENSE)
 
-*o shit waddup — dat pip boi rollin' in.*
+*o shit waddup — dat boi rollin' in.*
 
 </div>
 
@@ -35,14 +35,14 @@ evidence-gated learning loop, and a design built to be operated through your own
 
 ## What it is
 
-Dat Pip Boi is a self-contained autonomous trading system for Solana memecoins:
+DATBOI is a self-contained autonomous trading system for Solana memecoins:
 
 - **A trading bot** that discovers, scores, sizes, and exits positions on its
   own, on your wallet.
 - **A discovery sidecar** that streams candidate tokens from multiple
   free data sources (GeckoTerminal, DexScreener, bonding-curve flow, optional
   Bitquery) so the bot isn't starved.
-- **A live "Pip-Boy" terminal dashboard** at `localhost:8080` — bot status,
+- **A live "DATBOI" terminal dashboard** at `localhost:8080` — bot status,
   P&L, the ledger of every trade with *why* it closed, and its internals.
 - **An evidence loop + deploy gates** — the system logs the forward return of
   every token it scores, learns rules from realized outcomes, and refuses to
@@ -106,7 +106,7 @@ English** — *"how's my bot doing?"* — and it prints one clean card right in 
 
 ```text
 ╔══════════════════════════════════════════════════════════════╗
-║  $DATBOI · DAT PIP BOI                               ● ONLINE ║
+║  $DATBOI · DATBOI                               ● ONLINE ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  WALLET        ◎ 0.8007                                      ║
 ║  TO PRESTIGE   ◎ 2.0                                         ║
@@ -175,7 +175,7 @@ See [CLAUDE.md](CLAUDE.md) for the full map.
 | `dashboard.py`, `templates/` | the live web dashboard |
 | `config.py`, `config/` | configuration |
 | `deploy/` | optional macOS LaunchAgents (reboot-durable uptime) |
-| `docs/` | the Dat Pip Boi project site (served via GitHub Pages) |
+| `docs/` | the DATBOI project site (served via GitHub Pages) |
 | `test_*.py` | unit tests |
 
 ## Safety & secrets
@@ -189,7 +189,7 @@ See [CLAUDE.md](CLAUDE.md) for the full map.
 
 ## $DATBOI
 
-`$DATBOI` is the **community token** for Dat Pip Boi — a flag for an open,
+`$DATBOI` is the **community token** for DATBOI — a flag for an open,
 honest, self-hostable trading-research project. It is **not a fund**, not a
 managed account, and **not a promise of returns**. Value, if any, comes from
 what the community builds and adopts. The bot above is the real, working

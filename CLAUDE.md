@@ -1,6 +1,6 @@
-# CLAUDE.md — operating guide for Dat Pip Boi
+# CLAUDE.md — operating guide for DATBOI
 
-You are helping someone run **their own** Dat Pip Boi: an autonomous Solana
+You are helping someone run **their own** DATBOI: an autonomous Solana
 memecoin trading bot with a live dashboard and an evidence-gated learning
 loop. This file is your map and your rulebook. Read it before acting.
 

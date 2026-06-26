@@ -1,4 +1,4 @@
-# Setting up your own Dat Pip Boi
+# Setting up your own DATBOI
 
 This walks you from zero to a running bot on the dashboard. Budget ~15–20 min.
 If you have Claude Code, you can also just say *"help me set up this repo"* — the

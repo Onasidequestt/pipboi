@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Dat Pip Boi Execution Audit
+DATBOI Execution Audit
 
 Default:        Fleet Health Score + compact per-bot table + recommendations.
 --report-full:  Everything above + per-token slippage breakdown with penalty
@@ -586,7 +586,7 @@ def analyze_bot(name: str, db_path: str) -> dict:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Dat Pip Boi execution audit: latency, drift, and penalty correlation.",
+        description="DATBOI execution audit: latency, drift, and penalty correlation.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 examples:
@@ -604,7 +604,7 @@ examples:
 
     ts_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     mode   = "FULL" if args.report_full else "SUMMARY  (--report-full for breakdown + CSV)"
-    print(f"DAT PIP BOI EXECUTION AUDIT  {ts_str}  |  {mode}")
+    print(f"DATBOI EXECUTION AUDIT  {ts_str}  |  {mode}")
     print(f"Signal match window: {SIGNAL_MATCH_WINDOW_S}s  |  Min token trades: {_MIN_TOKEN_TRADES}")
 
     results = []

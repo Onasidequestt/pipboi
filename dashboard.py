@@ -1,5 +1,5 @@
 """
-Dat Pip Boi — Dashboard & Process Manager
+DATBOI — Dashboard & Process Manager
 The dashboard runs the bot as a headless process managed here.
 """
 import asyncio
@@ -432,7 +432,7 @@ async def index():
     )
 
 
-# ── Brand assets (Dat Pip Boi logo) ──────────────────────────────────────────────────
+# ── Brand assets (DATBOI logo) ──────────────────────────────────────────────────
 # Static, public, read-only. Allowlisted filenames only — no path traversal, no
 # arbitrary file reads. Served same-origin so the CSP img-src 'self' permits them.
 _ASSET_TYPES = {
