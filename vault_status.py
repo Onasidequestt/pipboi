@@ -11,7 +11,7 @@ right here in the terminal.
   python3 vault_status.py --all      # every bot you're running
   python3 vault_status.py --trades 8 # show more recent trades
 
-Read-only. Touches nothing the fleet owns — it only reads status.json + the
+Read-only. Touches nothing the bot owns — it only reads status.json + the
 trade ledger. Safe to run any time, while the bot is trading or stopped.
 """
 import argparse
@@ -169,8 +169,8 @@ def render_bot(bot: int, n_trades: int = 5) -> str:
                          _visible_len("No bot running yet — three steps to start:")))
         out.append(_line())
         for txt, plain in (
-            (f"{GREEN}1.{RST} {WHITE}./run.sh{RST}            {GREY}start the fleet + dashboard{RST}",
-             "1. ./run.sh            start the fleet + dashboard"),
+            (f"{GREEN}1.{RST} {WHITE}./run.sh{RST}            {GREY}start the bot + dashboard{RST}",
+             "1. ./run.sh            start the bot + dashboard"),
             (f"{GREEN}2.{RST} open {WHITE}localhost:8080{RST}  {GREY}→ click Activate, fund the wallet{RST}",
              "2. open localhost:8080  → click Activate, fund the wallet"),
             (f"{GREEN}3.{RST} {GREY}ask me {RST}{WHITE}“how's my bot?”{RST}{GREY} again once it trades{RST}",
