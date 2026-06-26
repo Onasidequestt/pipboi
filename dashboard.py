@@ -1384,4 +1384,12 @@ if __name__ == "__main__":
     # network, and DASHBOARD_PORT to change the port (e.g. if 8080 is taken).
     _host = os.getenv("DASHBOARD_HOST", "127.0.0.1").strip()
     _port = int(os.getenv("DASHBOARD_PORT", "8080"))
+    # SAFETY: never expose admin (which can drain the wallet) to the network without
+    # a real secret. If bound to a non-loopback host with no DASHBOARD_SECRET, refuse
+    # to start — otherwise anyone on the LAN/internet gets unauthenticated control.
+    if _host not in ("127.0.0.1", "localhost", "::1") and not DASHBOARD_SECRET:
+        import sys as _sys
+        _sys.exit(f"[Fleet] ✗ FATAL: refusing to bind {_host} with no DASHBOARD_SECRET set "
+                  "(that would expose wallet-draining controls to the network). "
+                  "Set DASHBOARD_SECRET in .env, or keep DASHBOARD_HOST=127.0.0.1.")
     uvicorn.run("dashboard:app", host=_host, port=_port, reload=False)
