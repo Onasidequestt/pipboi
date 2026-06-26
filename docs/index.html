@@ -40,6 +40,11 @@
       radial-gradient(720px 540px at 94% 6%,rgba(46,232,92,.06),transparent 60%),
       radial-gradient(1000px 760px at 50% 120%,rgba(26,168,71,.08),transparent 60%)}
   #cursor-fx{position:fixed;inset:0;z-index:0;pointer-events:none;max-width:100vw;max-height:100vh}
+  #sndtoggle{position:fixed;left:16px;bottom:16px;z-index:95;width:44px;height:44px;border-radius:50%;
+        border:1px solid var(--gd);background:rgba(7,12,7,.82);color:var(--g);font-size:19px;cursor:pointer;
+        display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);
+        box-shadow:0 0 18px rgba(61,251,110,.25);transition:transform .15s var(--ease),box-shadow .2s}
+  #sndtoggle:hover{transform:scale(1.08);box-shadow:0 0 26px rgba(61,251,110,.45)}
   main,nav,footer{position:relative;z-index:2}
   a{color:var(--g);text-decoration:none}
   a:hover{text-decoration:underline}
@@ -332,6 +337,7 @@
 </head>
 <body>
 <canvas id="cursor-fx"></canvas>
+<button id="sndtoggle" title="dat boi sound" aria-label="toggle sound">🔊</button>
 <div id="progress"></div>
 
 <nav id="nav">
@@ -1097,6 +1103,53 @@ document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
     requestAnimationFrame(frame);
   }
   frame();
+})();
+</script>
+<script>
+/* ── here come dat boi — original 8-bit chiptune (Web Audio, no copyright, no file) ── */
+(function(){
+  var actx=null, played=false, muted=false;
+  function AC(){ return window.AudioContext||window.webkitAudioContext; }
+  function blip(c,t,freq,dur,type,vol){
+    var o=c.createOscillator(), g=c.createGain();
+    o.type=type; o.frequency.setValueAtTime(freq,t);
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(vol,t+0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+dur+0.03);
+  }
+  function jingle(c){
+    var t=c.currentTime+0.06, b=0.135;
+    // bouncy original riff (square lead) — G A C6 A G E G  /  C6 B A G
+    var lead=[[784,0],[880,1],[1046,2],[880,3],[784,4],[659,5],[784,6],[784,7],
+              [1046,8],[988,9],[880,10],[784,11.5]];
+    lead.forEach(function(n){ blip(c,t+n[1]*b,n[0],b*0.92,'square',0.15); });
+    // root pulse (triangle bass)
+    var bass=[[196,0],[196,2],[262,4],[196,6],[262,8],[196,10]];
+    bass.forEach(function(n){ blip(c,t+n[1]*b,n[0],b*1.7,'triangle',0.22); });
+    // sparkle tail
+    blip(c,t+12*b,1318,b*1.4,'square',0.13);
+  }
+  function tryPlay(){
+    if(muted||played) return;
+    try{
+      actx=actx||new (AC())();
+      actx.resume().then(function(){
+        if(actx.state==='running' && !played && !muted){ jingle(actx); played=true; }
+      });
+    }catch(e){}
+  }
+  // fire on load (often blocked) + guaranteed on first user gesture
+  window.addEventListener('load', tryPlay);
+  ['pointerdown','touchstart','keydown','scroll'].forEach(function(ev){
+    window.addEventListener(ev, tryPlay, {passive:true});
+  });
+  var btn=document.getElementById('sndtoggle');
+  if(btn) btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    muted=!muted; btn.textContent=muted?'🔇':'🔊';
+    if(!muted){ played=false; tryPlay(); }   // unmute = replay it
+  });
 })();
 </script>
 </body>
