@@ -111,12 +111,12 @@ async function save(){
     if(r.status === 429){ show('err','Too many attempts — wait a moment.'); return; }
     const d = await r.json();
     if(!d.ok){ show('err', d.error || 'Save failed.'); return; }
-    show('ok','✓ Saved! Now restart the fleet to apply: press Ctrl-C in the terminal, '
-            + 'run ./run.sh again, then reload this page. Your dashboard will appear — '
-            + 'click Activate on a bot to generate a wallet and start trading.');
+    show('ok','✓ Saved! Now restart DATBOI to apply: press Ctrl-C in the terminal, '
+            + 'run ./datboi run again, then reload this page. Your dashboard will appear — '
+            + 'click Activate to generate a wallet and start trading.');
     btn.textContent = 'Saved ✓';
   }catch(e){
-    show('err','Network error — is the fleet running?');
+    show('err','Network error — is DATBOI running? (start it with ./datboi run)');
   }finally{
     if(btn.textContent === 'Saving…'){ btn.disabled = false; btn.textContent = 'Save & continue'; }
   }
