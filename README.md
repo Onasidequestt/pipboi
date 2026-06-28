@@ -8,7 +8,7 @@
 wallet, your keys, your machine. A live terminal dashboard, an evidence-gated
 learning loop, and a design you can operate through your own Claude.**
 
-[🌐 Live site](https://onasidequestt.github.io/datpipboi/) · [🔒 Security](SECURITY.md) · [⚙️ Setup](SETUP.md) · [MIT License](LICENSE)
+[🌐 Live site](https://onasidequestt.github.io/datpipboi/) · [❓ FAQ](FAQ.md) · [🔒 Security](SECURITY.md) · [⚙️ Setup](SETUP.md) · [MIT License](LICENSE)
 
 *o shit waddup — dat boi rollin' in.*
 

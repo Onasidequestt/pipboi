@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Telegram community
+    url: https://t.me/datpipboi
+    about: Fastest way to get help, meme, and hang out with other operators.
+  - name: 📖 FAQ
+    url: https://github.com/Onasidequestt/datpipboi/blob/main/FAQ.md
+    about: "Is it safe? Will I make money? What's the official contract? Start here."
+  - name: 🔒 Security / scam report
+    url: https://github.com/Onasidequestt/datpipboi/blob/main/SECURITY.md
+    about: Reporting a vulnerability, or a fake $DATBOI / impersonator — read this.
