@@ -4,10 +4,10 @@
 # Matches the existing signal_lab / strategy_brain nohup-loop pattern. This gives
 # immediate recurring coverage in the CURRENT session; it DIES on reboot/logout
 # (it survives while the fleet's `caffeinate` keeps the Mac awake). For coverage
-# that survives a reboot, also install deploy/com.datboi.watchdog.plist.
+# that survives a reboot, also install deploy/com.pipboi.watchdog.plist.
 #
 #   Start (background, detached):
-#     cd /path/to/datboi
+#     cd /path/to/pipboi
 #     nohup ./watchdog_loop.sh >logs/watchdog_loop.log 2>&1 &
 #
 #   Stop:

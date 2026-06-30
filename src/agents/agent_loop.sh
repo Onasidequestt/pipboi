@@ -10,7 +10,7 @@
 #
 # Survives process death is NOT handled here (this IS the supervisor); dies on reboot
 # like the other loops. Reversible: pkill -f agent_loop.sh
-# Start:  cd /path/to/datboi && nohup ./agents/agent_loop.sh >>logs/agents.log 2>&1 &
+# Start:  cd /path/to/pipboi && nohup ./agents/agent_loop.sh >>logs/agents.log 2>&1 &
 #
 # Cadence overridable via env: STRATEGY_INTERVAL / EXEC_INTERVAL (seconds).
 # Backend overridable via env: AGENT_BACKEND (auto|cli|api|dry-run) — e.g. run the whole

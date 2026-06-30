@@ -14,14 +14,14 @@
             sleep 2
        2. Install + load:
             Install with: ./deploy/install.sh  (fills the real path + loads the agent)
-            launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.datboi.fleet.plist
-            launchctl enable gui/$(id -u)/com.datboi.fleet
-       3. Verify:  launchctl print gui/$(id -u)/com.datboi.fleet | grep -i state   ·  curl -s localhost:8080 >/dev/null && echo up
+            launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.pipboi.fleet.plist
+            launchctl enable gui/$(id -u)/com.pipboi.fleet
+       3. Verify:  launchctl print gui/$(id -u)/com.pipboi.fleet | grep -i state   ·  curl -s localhost:8080 >/dev/null && echo up
      Remove (back to manual run.sh):
-            launchctl bootout gui/$(id -u)/com.datboi.fleet
-            rm ~/Library/LaunchAgents/com.datboi.fleet.plist
+            launchctl bootout gui/$(id -u)/com.pipboi.fleet
+            rm ~/Library/LaunchAgents/com.pipboi.fleet.plist
      Restart the fleet under the agent:
-            launchctl kickstart -k gui/$(id -u)/com.datboi.fleet
+            launchctl kickstart -k gui/$(id -u)/com.pipboi.fleet
 
      NOTE — this does NOT fix laptop SLEEP (lid-close on battery still sleeps; caffeinate -dims only
      covers idle while running). For true 24/7 use `sudo pmset -a sleep 0 disablesleep 1` or a VPS.
@@ -31,15 +31,15 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.datboi.fleet</string>
+  <string>com.pipboi.fleet</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
     <string>-lc</string>
-    <string>exec __DATBOI_DIR__/deploy/fleet_launchd.sh</string>
+    <string>exec __PIPBOI_DIR__/deploy/fleet_launchd.sh</string>
   </array>
   <key>WorkingDirectory</key>
-  <string>__DATBOI_DIR__</string>
+  <string>__PIPBOI_DIR__</string>
   <key>RunAtLoad</key>
   <true/>
   <key>KeepAlive</key>
@@ -49,8 +49,8 @@
   <key>ProcessType</key>
   <string>Interactive</string>
   <key>StandardOutPath</key>
-  <string>__DATBOI_DIR__/src/logs/fleet_launchd.log</string>
+  <string>__PIPBOI_DIR__/src/logs/fleet_launchd.log</string>
   <key>StandardErrorPath</key>
-  <string>__DATBOI_DIR__/src/logs/fleet_launchd.log</string>
+  <string>__PIPBOI_DIR__/src/logs/fleet_launchd.log</string>
 </dict>
 </plist>

@@ -6,33 +6,33 @@
 
      Install:
        Install with: ./deploy/install.sh  (fills the real path + loads the agent)
-       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.datboi.optimizer.plist
-       launchctl enable gui/$(id -u)/com.datboi.optimizer
+       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.pipboi.optimizer.plist
+       launchctl enable gui/$(id -u)/com.pipboi.optimizer
      Remove:
-       launchctl bootout gui/$(id -u)/com.datboi.optimizer
+       launchctl bootout gui/$(id -u)/com.pipboi.optimizer
      Run once now (test):
-       launchctl kickstart -k gui/$(id -u)/com.datboi.optimizer
+       launchctl kickstart -k gui/$(id -u)/com.pipboi.optimizer
 -->
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.datboi.optimizer</string>
+  <string>com.pipboi.optimizer</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
     <string>-lc</string>
-    <string>cd __DATBOI_DIR__/src &amp;&amp; ./run_optimizer.sh</string>
+    <string>cd __PIPBOI_DIR__/src &amp;&amp; ./run_optimizer.sh</string>
   </array>
   <key>WorkingDirectory</key>
-  <string>__DATBOI_DIR__/src</string>
+  <string>__PIPBOI_DIR__/src</string>
   <key>StartCalendarInterval</key>
   <array>
     <dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>0</integer></dict>
     <dict><key>Hour</key><integer>19</integer><key>Minute</key><integer>0</integer></dict>
   </array>
   <key>StandardOutPath</key>
-  <string>__DATBOI_DIR__/src/logs/goldilocks_cron.log</string>
+  <string>__PIPBOI_DIR__/src/logs/goldilocks_cron.log</string>
   <key>StandardErrorPath</key>
-  <string>__DATBOI_DIR__/src/logs/goldilocks_cron.log</string>
+  <string>__PIPBOI_DIR__/src/logs/goldilocks_cron.log</string>
 </dict>
 </plist>

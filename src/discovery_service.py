@@ -17,7 +17,7 @@ Graceful degradation: if this process is not running, bots fall back to standalo
 polling exactly as before — there is no hard dependency.
 
 Usage:
-    python3 ./datboi discovery_service
+    python3 ./pipboi discovery_service
 
 run.sh starts this before the dashboard so bots receive a populated snapshot
 on their first cycle.  The process runs until the terminal/fleet shuts down.

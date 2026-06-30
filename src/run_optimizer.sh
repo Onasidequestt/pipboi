@@ -14,7 +14,7 @@
 #   - Manually after each ~20-trade batch to incorporate new data.
 #   - Or via cron: add to crontab with `crontab -e`
 #     Example — run at 6 AM and 6 PM daily:
-#       0 6,18 * * * cd /path/to/datboi && ./run_optimizer.sh >> logs/goldilocks_cron.log 2>&1
+#       0 6,18 * * * cd /path/to/pipboi && ./run_optimizer.sh >> logs/goldilocks_cron.log 2>&1
 #
 # What it does NOT do:
 #   - It does NOT restart the bots. thresholds_override.json is hot-reloaded in-process.

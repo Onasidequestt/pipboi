@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
-# datboi — one command for the whole bot. Runs everything from src/ so paths
+# pipboi — one command for the whole bot. Runs everything from src/ so paths
 # stay consistent no matter where you call it from.
 #
-#   ./datboi                 # status card (default — "how's my bot?")
-#   ./datboi status --trades 8
-#   ./datboi run             # start the bot (sidecar + dashboard + bot)
-#   ./datboi setup           # interactive key/wallet wizard
-#   ./datboi test            # run the test suite
-#   ./datboi edge_report --by-play     # any analysis tool in src/
-#   ./datboi kill_criterion            # ...e.g. the deploy-gate verdict
+#   ./pipboi                 # status card (default — "how's my bot?")
+#   ./pipboi status --trades 8
+#   ./pipboi run             # start the bot (sidecar + dashboard + bot)
+#   ./pipboi setup           # interactive key/wallet wizard
+#   ./pipboi test            # run the test suite
+#   ./pipboi edge_report --by-play     # any analysis tool in src/
+#   ./pipboi kill_criterion            # ...e.g. the deploy-gate verdict
 #
-# Type just `datboi` from anywhere? Symlink it:  ln -s "$PWD/datboi" /usr/local/bin/datboi
+# Type just `pipboi` from anywhere? Symlink it:  ln -s "$PWD/pipboi" /usr/local/bin/pipboi
 set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -31,7 +31,7 @@ case "$cmd" in
     *)
         # status, setup, or any analysis tool: run the matching src/<cmd>.py with src/ as CWD
         if [ ! -f "$DIR/src/$cmd.py" ]; then
-            echo "datboi: unknown command or tool '$cmd' (no src/$cmd.py). Try: ./datboi --help" >&2
+            echo "pipboi: unknown command or tool '$cmd' (no src/$cmd.py). Try: ./pipboi --help" >&2
             exit 2
         fi
         cd "$DIR/src"

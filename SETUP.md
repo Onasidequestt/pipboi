@@ -1,4 +1,4 @@
-# Setting up your own DATBOI
+# Setting up your own PIPBOI
 
 This walks you from zero to a running bot on the dashboard. Budget ~15 min. If you
 have Claude Code, you can also just say *"help me set up this repo"* — the included
@@ -23,8 +23,8 @@ dashboard generates one for you (the bring-your-own-keypair path is in step 6).
 ## 2. Clone & install
 
 ```bash
-git clone https://github.com/Onasidequestt/datpipboi.git
-cd datpipboi
+git clone https://github.com/Onasidequestt/pipboi.git
+cd pipboi
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -38,7 +38,7 @@ pip install -r requirements.txt
 ## 4. Run it
 
 ```bash
-./datboi run        # (or ./run.sh) — starts the discovery sidecar, dashboard, and bot
+./pipboi run        # (or ./run.sh) — starts the discovery sidecar, dashboard, and bot
 ```
 
 It prints your **dashboard PIN** (you'll use it to unlock admin actions). Then open:
@@ -51,11 +51,11 @@ http://localhost:8080
 
 On first run the dashboard shows a **setup page**. Enter:
 
-- your **dashboard PIN** (printed in the terminal by `./datboi run`),
+- your **dashboard PIN** (printed in the terminal by `./pipboi run`),
 - your **Helius** API key *(required — link to get one is on the page)*,
 - your **Bitquery** key *(optional)*,
 
-…and click **Save & continue**. Then restart (`Ctrl-C`, `./datboi run`) and reload —
+…and click **Save & continue**. Then restart (`Ctrl-C`, `./pipboi run`) and reload —
 the full dashboard appears.
 
 > **Prefer not to use the browser?** Two equivalent alternatives:
@@ -67,18 +67,18 @@ the full dashboard appears.
 ## 6. Get a wallet trading
 
 In the dashboard, the bot starts **undeployed**. Unlock with your PIN and click
-**Activate** — DATBOI **generates a fresh trading wallet and shows you its address.**
+**Activate** — PIPBOI **generates a fresh trading wallet and shows you its address.**
 **Fund that address** with a small amount of SOL (e.g. 0.1–0.5 to start). The bot
 sizes every trade from the live balance, so a small balance = small trades, and it
 begins trading on the next cycle.
 
-> **Advanced — bring your own keypair instead of letting DATBOI generate one:**
+> **Advanced — bring your own keypair instead of letting PIPBOI generate one:**
 > create a fresh keypair with the official Solana CLI and point `KEYPAIR_PATH` at it.
 > ```bash
 > sh -c "$(curl -sSfL https://release.anza.xyz/stable/install)"   # official Anza installer
-> solana-keygen new --outfile ~/.config/solana/datboi.json
+> solana-keygen new --outfile ~/.config/solana/pipboi.json
 > ```
-> Then set `KEYPAIR_PATH=~/.config/solana/datboi.json` in `.env` (or via the wizard)
+> Then set `KEYPAIR_PATH=~/.config/solana/pipboi.json` in `.env` (or via the wizard)
 > and **never reuse your main wallet.**
 
 Start by just **watching**: the dashboard shows every candidate scored, every trade
@@ -94,15 +94,15 @@ opened, and every close *with the reason why*. Get a feel for it before you scal
 
 - **Dashboard tabs:** `SCOUT` (what it's seeing), `TRADE` (live positions),
   `LEDGER` (every closed trade + why), `GENE` (the bot's internals + the gate).
-- **Restart:** `Ctrl-C` in the `./datboi run` terminal, then `./datboi run` again.
-- **Check status anytime (read-only):** `./datboi` (or `./datboi status --trades 8`).
+- **Restart:** `Ctrl-C` in the `./pipboi run` terminal, then `./pipboi run` again.
+- **Check status anytime (read-only):** `./pipboi` (or `./pipboi status --trades 8`).
 - **Read-only health/analysis tools** (safe to run anytime):
   ```bash
-  ./datboi prestige_tracker     # balance, the deploy gate, days-to-goal
-  ./datboi edge_report --by-play # realized edge by strategy, fee-aware
-  ./datboi kill_criterion        # the pre-registered "is the edge real?" verdict
+  ./pipboi prestige_tracker     # balance, the deploy gate, days-to-goal
+  ./pipboi edge_report --by-play # realized edge by strategy, fee-aware
+  ./pipboi kill_criterion        # the pre-registered "is the edge real?" verdict
   ```
-- **Run the test suite:** `./datboi test`
+- **Run the test suite:** `./pipboi test`
 
 ## Changing settings (the easy knobs)
 
@@ -134,7 +134,7 @@ when the edge has proven itself on real results. Let them do their job. This is 
 **First thing to try — the built-in checkup:**
 
 ```bash
-./datboi doctor
+./pipboi doctor
 ```
 
 It checks your Python version, dependencies, `.env`, API key, the dashboard PIN,
@@ -142,12 +142,12 @@ the wallet, and the port — and tells you the **one command** to fix whatever's
 
 | Symptom | Likely cause / fix |
 |---|---|
-| Dashboard won't load | Port 8080 in use, or `run.sh` exited — check the terminal output, or run `./datboi doctor`. |
+| Dashboard won't load | Port 8080 in use, or `run.sh` exited — check the terminal output, or run `./pipboi doctor`. |
 | `ModuleNotFoundError` on start | Dependencies not installed — `pip install -r requirements.txt` (in your venv). |
 | `SyntaxError` on start | You're on Python older than 3.9 — upgrade to 3.9+ (`python3 --version`). |
 | "0 candidates" / bot idle | Free data-source rate limits, or a quiet market. It self-recovers. |
 | No trades happening | The bot is selective by design. Check the `SCOUT` tab for skip reasons. |
-| Forgot your dashboard PIN | It's in `.env` (`DASHBOARD_PIN=`), and `./datboi doctor` prints it. |
+| Forgot your dashboard PIN | It's in `.env` (`DASHBOARD_PIN=`), and `./pipboi doctor` prints it. |
 | Wallet shows 0 / no trades | The bot only trades the SOL actually in your wallet. Fund it. |
 
 Stuck? Open the repo in Claude Code and ask — `CLAUDE.md` makes it a capable

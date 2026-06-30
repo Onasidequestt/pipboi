@@ -5,7 +5,7 @@
 # pre-registered, fail-closed verdict (SCALE-CANDIDATE / KILL / PENDING) and the
 # operator-suggested action, nothing more. Matches the gene_arm_loop.sh / watchdog_loop.sh
 # nohup idiom. NOT KeepAlive-critical: dies on reboot, restart with:
-#   cd /path/to/datboi && nohup ./runner_watch_loop.sh >logs/runner_watch_loop.log 2>&1 &
+#   cd /path/to/pipboi && nohup ./runner_watch_loop.sh >logs/runner_watch_loop.log 2>&1 &
 # Stop: pkill -f runner_watch_loop.sh
 cd "$(dirname "$0")" || exit 1
 INTERVAL="${1:-1800}"   # seconds between checks (default 30 min)

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>DATBOI — o shit waddup</title>
+<title>PIPBOI — o shit waddup</title>
 <link rel="icon" type="image/png" href="/assets/datboi-logo.png"/>
 <link rel="apple-touch-icon" href="/assets/datboi-logo.png"/>
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet"/>
@@ -12,7 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
 <style>
 /* ═══════════════════════════════════════════════════
-   DATBOI — PIP-BOY MOBILE v29
+   PIPBOI — PIP-BOY MOBILE v29
    Full-screen terminal. Phosphor display. Touch-first.
    ═══════════════════════════════════════════════════ */
 :root {
@@ -23,11 +23,11 @@
   --surface-2: #171E18;   /* raised element (+~4% L) */
   --surface-3: #1E2620;   /* hover / active lift */
   --hairline:  #232E24;   /* low-alpha divider — depth via hairline, not glow */
-  /* S122: VIVID DATBOI phosphor green ramp — brightened+saturated to match the logo
+  /* S122: VIVID PIPBOI phosphor green ramp — brightened+saturated to match the logo
      (was the S120 muted-sage family). One hue, near-black surfaces keep it readable. */
   --green-50:  #D6FFE2;   /* brightest phosphor-mint — hero only */
   --green-100: #8DFCAB;   /* light phosphor */
-  --green-300: #3DFB6E;   /* PRIMARY accent — vivid DATBOI phosphor (status, active tab, +deltas) */
+  --green-300: #3DFB6E;   /* PRIMARY accent — vivid PIPBOI phosphor (status, active tab, +deltas) */
   --green-500: #2EE85C;   /* fills */
   --green-700: #1AA847;   /* dim / inactive — saturated mid phosphor */
   --green-900: #0C4020;   /* faint structure — dark phosphor */
@@ -193,7 +193,7 @@ body::after {
 .row2-sep-label.unlocked { color: var(--gdim); }
 
 /* ── SINGLE-BOT MODE — hide the multi-bot race surfaces ──
-   DATBOI is one bot, so the GENE/race-trajectory tab, the
+   PIPBOI is one bot, so the GENE/race-trajectory tab, the
    leader crown, and the expansion-fleet row are not shown. */
 .tier-folder.t4 { display: none !important; }
 [id$="-crown"]  { display: none !important; }
@@ -1943,7 +1943,7 @@ button, a, input, .slot-header, .think-toggle, .tok-link, .modal-btn {
   /* immersive top-left reads the brand wordmark */
   .vault-slot.immersive .slot-num { font-size: 0; }
   .vault-slot.immersive .slot-num::before {
-    content: "DATBOI"; font-size: 19px; letter-spacing: .04em;
+    content: "PIPBOI"; font-size: 19px; letter-spacing: .04em;
     color: var(--green-300); text-shadow: var(--glow-sm);
   }
   .vault-slot.immersive .shdr-chevron,
@@ -2033,7 +2033,7 @@ button:focus-visible, a:focus-visible, .tier-btn:focus-visible, .slot-header:foc
 
 /* ════════════════════════════════════════════════════════════════════════
    MOTION REFINEMENT PASS (S118) — tasteful, intentional motion EXTENDING the
-   S114 "DATBOI designed by Apple" phosphor look. Discipline:
+   S114 "PIPBOI designed by Apple" phosphor look. Discipline:
      · CSS-first; transform/opacity only (+ a one-shot stroke draw & brightness
        write-in — both single-element, one-shot, never per-poll).
      · NO linear easing — uses --ease-out (cubic-bezier(.16,1,.3,1), an
@@ -2068,7 +2068,7 @@ button:focus-visible, a:focus-visible, .tier-btn:focus-visible, .slot-header:foc
 @keyframes chart-develop { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
 #chart-wrap.chart-develop, .chart-wrap.chart-develop { animation: chart-develop .6s var(--ease-out); }
 
-/* (4) "DATBOI" header — SplitText-style per-character rise on app entrance,
+/* (4) "PIPBOI" header — SplitText-style per-character rise on app entrance,
    in pure CSS (chars wrapped in .ch by JS at reveal; no library needed). */
 #fleet-logo .flogo-txt .ch { display:inline-block; color: var(--g); }
 #fleet-logo.logo-reveal .flogo-txt .ch {
@@ -2109,8 +2109,8 @@ button:focus-visible, a:focus-visible, .tier-btn:focus-visible, .slot-header:foc
 
   <!-- FLEET HEADER -->
   <div id="fleet-header">
-    <div id="fleet-logo" onclick="_secretTap(event)" data-tip="DATBOI — tap 5× for admin">
-      <span class="flogo-txt">DATBOI</span>
+    <div id="fleet-logo" onclick="_secretTap(event)" data-tip="PIPBOI — tap 5× for admin">
+      <span class="flogo-txt">PIPBOI</span>
     </div>
     <div id="fleet-meta">
       <span id="active-count" data-tip="Bot status"><span style="color:var(--g)">1</span> ACTIVE</span>
@@ -2146,7 +2146,7 @@ button:focus-visible, a:focus-visible, .tier-btn:focus-visible, .slot-header:foc
             <circle cx="10" cy="10" r="3.2" fill="none" stroke="#3DFB6E" stroke-width="1"/>
             <circle cx="10" cy="10" r="1.4" fill="#3DFB6E"/>
           </svg>
-          <span class="slot-num" style="color:var(--g);text-shadow:var(--glow-sm)" data-tip="Click to collapse">DATBOI</span>
+          <span class="slot-num" style="color:var(--g);text-shadow:var(--glow-sm)" data-tip="Click to collapse">PIPBOI</span>
           <span id="slot-1-crown" style="display:none;color:#ffcc00;text-shadow:0 0 10px #ffcc00,0 0 22px #FFB454;font-size:16px;margin-left:4px" data-tip="♛ Prestige">♛</span>
           <span id="slot-1-prestige-badge" class="prestige-badge" data-tip="Prestige count — milestone completions"></span>
           <span class="trade-dot" id="s1-trade-dot" data-tip="Active positions">● IN TRADE</span>
@@ -2352,7 +2352,7 @@ button:focus-visible, a:focus-visible, .tier-btn:focus-visible, .slot-header:foc
 
 <!-- Toast notifications -->
 <div id="toast-container"></div>
-<!-- DATBOI tooltip -->
+<!-- PIPBOI tooltip -->
 <div id="pip-tt"></div>
 
 <!-- AUTH MODAL -->
@@ -2425,7 +2425,7 @@ let _solPrice = 82; // updated on every status poll — used to convert USD audi
 
 // ── Vault Auth ────────────────────────────────────────────────────────────────
 // Public viewers see a clean read-only dashboard — no prompts, no friction.
-// Owner unlocks by tapping the DATBOI logo (or any vault icon) 5 times within 4 seconds.
+// Owner unlocks by tapping the PIPBOI logo (or any vault icon) 5 times within 4 seconds.
 // Accepted credentials: full DASHBOARD_SECRET token OR the short PIN ("0098").
 // Session lives in sessionStorage — clears when the tab closes.
 let _sessionUnlocked = false;   // resets to locked on every page load/refresh
@@ -2990,7 +2990,7 @@ function _renderSlot1Inactive(wallet){
     <div class="slot-header">
       <div class="shdr-row1">
         <div class="dot offline"></div>
-        <span class="slot-num" style="color:#886600">○ DATBOI</span>
+        <span class="slot-num" style="color:#886600">○ PIPBOI</span>
         <div class="shdr-actions">
           <button id="inactive-activate-btn-1" class="activate-btn vault-ctrl" onclick="showInactiveDeposit(1)" style="font-size:14px;padding:2px 10px;border-color:#886600;color:#886600" data-tip="Show wallet address to fund and reactivate">▶ ACTIVATE</button>
         </div>
@@ -5292,7 +5292,7 @@ function togglePause(botId){
   }
   // Pausing: show confirmation with warning about exits + 30s wait
   showConfirmModal(
-    `⏸ PAUSE DATBOI`,
+    `⏸ PAUSE PIPBOI`,
     `All open positions will be exited on the next cycle (~30 seconds).\n\nThe bot will stop entering new trades until you resume it.\n\nAllow up to 30 seconds after pausing for on-chain\ntransactions to confirm and balances to update.\n\nYou can resume at any time from this button.`,
     'PAUSE BOT',
     () => _doPause(botId),
@@ -5312,7 +5312,7 @@ async function showDrainModal(botId){
 
   if(!preview.ok){
     showConfirmModal(
-      `⬇ DRAIN DATBOI`,
+      `⬇ DRAIN PIPBOI`,
       `Unable to load drain details:\n${preview.error}`,
       'CLOSE', closeConfirmModal, false
     );
@@ -5338,7 +5338,7 @@ async function showDrainModal(botId){
   ].join('\n');
 
   showConfirmModal(
-    `⬇ DRAIN DATBOI`,
+    `⬇ DRAIN PIPBOI`,
     desc,
     `SEND ◎${sendAmt} BACK`,
     async () => {
@@ -5433,7 +5433,7 @@ function renderStartingSlot(slot, bot){
           <circle cx="10" cy="10" r="3.2" fill="none" stroke="#3DFB6E" stroke-width="1"/>
           <circle cx="10" cy="10" r="1.4" fill="#3DFB6E"/>
         </svg>
-        <span class="slot-num" style="color:var(--gdim)" data-tip="Click to collapse / expand">DATBOI</span>
+        <span class="slot-num" style="color:var(--gdim)" data-tip="Click to collapse / expand">PIPBOI</span>
         <span class="shdr-chevron" style="margin-left:auto" data-tip="Collapse / expand">▾</span>
       </div>
       <div class="shdr-row2">
@@ -5570,7 +5570,7 @@ function renderLockedSlot(slot, bot) {
     <div class="slot-header" data-tip="${lockTip}">
       <div class="shdr-row1">
         <div class="dot offline"></div>
-        <span class="slot-num">○ DATBOI</span>
+        <span class="slot-num">○ PIPBOI</span>
         <div class="shdr-actions">
           <button class="activate-btn" disabled style="opacity:.35;cursor:not-allowed;pointer-events:none;font-size:14px;padding:2px 10px" data-tip="Locked — reach ◎2.0 prestige first">▶ ACTIVATE</button>
         </div>
@@ -5589,7 +5589,7 @@ function renderInactiveSlot(slot,bot){
     <div class="slot-header">
       <div class="shdr-row1">
         <div class="dot offline"></div>
-        <span class="slot-num" style="color:#886600">○ DATBOI</span>
+        <span class="slot-num" style="color:#886600">○ PIPBOI</span>
         <div class="shdr-actions">
           <button id="inactive-activate-btn-${id}" class="activate-btn vault-ctrl" onclick="showInactiveDeposit(${id})" style="font-size:14px;padding:2px 10px;border-color:#886600;color:#886600" data-tip="Show wallet address to fund and reactivate">▶ ACTIVATE</button>
         </div>
@@ -5613,7 +5613,7 @@ function renderUndeployedSlot(slot,bot){
     <div class="slot-header">
       <div class="shdr-row1">
         <div class="dot offline"></div>
-        <span class="slot-num">○ DATBOI</span>
+        <span class="slot-num">○ PIPBOI</span>
         <div class="shdr-actions">
           <button id="activate-btn-${id}" class="activate-btn" onclick="activateBot(${id})" style="font-size:14px;padding:2px 10px" data-tip="Generate a new wallet and start Bot #${id}">▶ ACTIVATE</button>
         </div>
@@ -5631,7 +5631,7 @@ function renderPendingSlot(slot,bot){
     <div class="slot-header">
       <div class="shdr-row1">
         <div class="dot pending"></div>
-        <span class="slot-num" style="color:#886600">◌ DATBOI</span>
+        <span class="slot-num" style="color:#886600">◌ PIPBOI</span>
         <div class="shdr-actions">
           <button id="pending-addr-btn-${id}" class="activate-btn vault-ctrl" onclick="showPendingDeposit(${id})" style="font-size:14px;padding:2px 10px;border-color:#886600;color:#886600" data-tip="Show deposit address">▶ ACTIVATE</button>
         </div>
@@ -5652,7 +5652,7 @@ function renderPendingSlot(slot,bot){
 const _botCharts  = {};
 const _thinkAnims    = {};  // botId → { intervalId, frameIndex }
 const _tkRenderKeys  = {};  // botId → last render key — skip DOM rebuild when unchanged
-const _THINK_FRAMES  = ['○','◎','◉','◎'];  // DATBOI scanning cycle
+const _THINK_FRAMES  = ['○','◎','◉','◎'];  // PIPBOI scanning cycle
 const _t1FirstRender = {};  // botId → true after first render (skip scan on boot)
 const _t1ScanId      = {};  // botId → monotonic counter — stale timeouts self-cancel
 const _prevPosMints  = {};  // botId → Map(mint → pnl_pct) — shatter detection
@@ -5988,7 +5988,7 @@ function renderActiveSlot(slot,bot){
           <circle cx="10" cy="10" r="3.2" fill="none" stroke="#3DFB6E" stroke-width="1"/>
           <circle cx="10" cy="10" r="1.4" fill="#3DFB6E"/>
         </svg>
-        <span class="slot-num" style="color:var(--g);text-shadow:var(--glow-sm)" data-tip="Click to collapse">DATBOI</span>
+        <span class="slot-num" style="color:var(--g);text-shadow:var(--glow-sm)" data-tip="Click to collapse">PIPBOI</span>
         <span id="slot-${id}-crown" style="display:none;color:#ffcc00;text-shadow:0 0 10px #ffcc00,0 0 22px #FFB454;font-size:16px;margin-left:4px" data-tip="♛ Leading">♛</span>
         <span id="slot-${id}-prestige-badge" class="prestige-badge" data-tip="Prestige count — milestone completions"></span>
         <span class="trade-dot" id="s${id}-trade-dot" data-tip="Active positions">● IN TRADE</span>
@@ -7188,7 +7188,7 @@ function _initAllChartCursors() {
 
 // ── Boot ──────────────────────────────────────────────────────────────────────
 const BOOT_LINES = [
-  { t: 'DATBOI OS v1.0 — BOOT SEQUENCE INITIATED',           hi: true  },
+  { t: 'PIPBOI OS v1.0 — BOOT SEQUENCE INITIATED',           hi: true  },
   { t: 'CPU: VT323 PHOSPHOR CORE — OK',                     hi: false },
   { t: 'MEMORY: HEAP ALLOCATED — OK',                       hi: false },
   { t: 'CRT DISPLAY: SCANLINES ACTIVE — OK',                hi: false },
@@ -7200,7 +7200,7 @@ const BOOT_LINES = [
   { t: 'RUGCHECK SAFETY ORACLE — STANDBY',                  hi: false },
   { t: 'JITO BLOCK ENGINE — SLC PRIMARY [280ms]',           hi: false },
   { t: 'READING BOT REGISTRY...',                           hi: false },
-  { t: 'DATBOI ——— RUNNING  ◉ o shit waddup',          hi: true  },
+  { t: 'PIPBOI ——— RUNNING  ◉ o shit waddup',          hi: true  },
   { t: 'STRATEGY ENGINE: WILD / STOIC / INSANE — LOADED',   hi: false },
   { t: 'DISCOVERY: GEM HUNT ENGINE ARMED',                  hi: false },
   { t: 'CONFIDENCE CURVE: SIZING MODEL CALIBRATED',         hi: false },
@@ -7209,7 +7209,7 @@ const BOOT_LINES = [
   { t: 'PRESTIGE GUARD: ◎2.0 DRAIN LOGIC — ARMED',          hi: false },
   { t: 'AUDIT LOG: trades.db — OPEN',                       hi: false },
   { t: 'ALL SYSTEMS NOMINAL.',                              hi: true  },
-  { t: 'DATBOI — ONLINE.  o shit waddup',                  hi: true  },
+  { t: 'PIPBOI — ONLINE.  o shit waddup',                  hi: true  },
 ];
 
 function delay(ms){ return new Promise(r=>setTimeout(r,ms)); }
@@ -7233,9 +7233,9 @@ async function boot(){
   logo.classList.add('breathing');
   await delay(90);
 
-  // ── Phase 2: type "DATBOI" ───────────────────────────────────────────
+  // ── Phase 2: type "PIPBOI" ───────────────────────────────────────────
   title.classList.add('visible');
-  await typeText(title, 'DATBOI', 32);   /* S122: dropped the T.E.C. tag — boot title matches the header wordmark */
+  await typeText(title, 'PIPBOI', 32);   /* S122: dropped the T.E.C. tag — boot title matches the header wordmark */
   await delay(80);
 
   // ── Phase 3: rolling terminal window — last 9 lines, oldest dimmed ──
@@ -7294,7 +7294,7 @@ async function boot(){
   }
 
   // ── S118: app-entrance motion (one-shot, auto-gated by reduced-motion) ──
-  // "DATBOI" header — split into per-character spans, then a SplitText-style rise.
+  // "PIPBOI" header — split into per-character spans, then a SplitText-style rise.
   try{
     const logo = document.getElementById('fleet-logo');
     const txt  = logo && logo.querySelector('.flogo-txt');

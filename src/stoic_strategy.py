@@ -1,5 +1,5 @@
 """
-DATBOI STRATEGY ENGINE
+PIPBOI STRATEGY ENGINE
 --------------------------
 Core mission: Accumulate SOL. Reach 2.0. Repay 1.0 to the wallet that funded this.
 This bot exists to settle a debt. Every trade, every cycle, every gain serves that purpose.

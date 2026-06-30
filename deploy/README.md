@@ -1,17 +1,17 @@
 # deploy/ — optional macOS LaunchAgents for reboot/login-durable uptime
 
-`./run.sh` (or `./datboi run`) runs DATBOI in a terminal and **stops when you close it**. These
+`./run.sh` (or `./pipboi run`) runs PIPBOI in a terminal and **stops when you close it**. These
 optional macOS LaunchAgents make it survive reboot/logout and auto-recover on crash, running in your
 GUI user session (so missed jobs fire on wake — handy on a sleeping laptop). **None of this is
 required** to run the bot.
 
 | agent | what it supervises | cadence |
 |---|---|---|
-| **com.datboi.fleet** | the whole bot — `run.sh` → sidecar + dashboard + bot | RunAtLoad + KeepAlive |
-| com.datboi.signallab | `signal_lab.py --log` evidence logger | KeepAlive |
-| com.datboi.brain | `strategy_brain.py --evolve` hourly | StartInterval 3600 |
-| com.datboi.watchdog | `fleet_watchdog.py` (orphan sell / alerts) | StartInterval 21600 |
-| com.datboi.optimizer | `run_optimizer.sh` (param tuning) | KeepAlive |
+| **com.pipboi.fleet** | the whole bot — `run.sh` → sidecar + dashboard + bot | RunAtLoad + KeepAlive |
+| com.pipboi.signallab | `signal_lab.py --log` evidence logger | KeepAlive |
+| com.pipboi.brain | `strategy_brain.py --evolve` hourly | StartInterval 3600 |
+| com.pipboi.watchdog | `fleet_watchdog.py` (orphan sell / alerts) | StartInterval 21600 |
+| com.pipboi.optimizer | `run_optimizer.sh` (param tuning) | KeepAlive |
 
 ## Install
 
@@ -24,13 +24,13 @@ system-wide changes (everything lives under `~/Library/LaunchAgents` and runs as
 ./deploy/uninstall.sh        # remove them all (code, .env, and trade data untouched)
 ```
 
-The committed `.plist` files are **templates** (they contain `__DATBOI_DIR__`, not a real path) so
+The committed `.plist` files are **templates** (they contain `__PIPBOI_DIR__`, not a real path) so
 nothing machine-specific is baked into the repo. `install.sh` substitutes your actual repo path at
 install time.
 
 ## The fleet agent's safety guard
 
-`com.datboi.fleet` runs the guarded launcher `fleet_launchd.sh`, which **refuses to start a second
+`com.pipboi.fleet` runs the guarded launcher `fleet_launchd.sh`, which **refuses to start a second
 fleet when port 8080 is already bound**. launchd runs ≤1 instance per Label, so the only possible
 collision is launchd-vs-a-manual-`run.sh` — the guard catches exactly that, logs to
 `src/logs/fleet_launchd.log`, and exits so KeepAlive re-checks ~every 60s. It converges (starts the
@@ -39,10 +39,10 @@ moment the manual fleet stops) with no tight respawn loop.
 ## Verify / control
 
 ```bash
-launchctl list | grep com.datboi
-launchctl print gui/$(id -u)/com.datboi.fleet | grep -iE "state|pid"
+launchctl list | grep com.pipboi
+launchctl print gui/$(id -u)/com.pipboi.fleet | grep -iE "state|pid"
 curl -s localhost:8080 >/dev/null && echo "dashboard up"
-launchctl kickstart -k gui/$(id -u)/com.datboi.fleet     # restart under the agent
+launchctl kickstart -k gui/$(id -u)/com.pipboi.fleet     # restart under the agent
 tail -f src/logs/fleet_launchd.log
 ```
 

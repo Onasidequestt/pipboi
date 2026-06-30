@@ -1,5 +1,5 @@
 #!/bin/bash
-# Guarded launcher for the com.datboi.fleet LaunchAgent (optional reboot-durable uptime).
+# Guarded launcher for the com.pipboi.fleet LaunchAgent (optional reboot-durable uptime).
 #
 # Why a guard: there is ONE port-8080 dashboard. If launchd starts run.sh while a manual
 # `./run.sh` is already running, two dashboards fight for 8080. launchd runs at most one

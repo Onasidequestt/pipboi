@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-DATBOI — first-run setup wizard.
+PIPBOI — first-run setup wizard.
 
 Run me:   python3 setup.py
 
@@ -75,7 +75,7 @@ def main():
     print(f"\n{B}3) Wallet{R}  (the SOL the bot trades with)")
     print(f"   {D}You don't need a wallet yet — when you 'Activate' a bot in the dashboard{R}")
     print(f"   {D}it generates a fresh wallet for you and shows its address to fund.{R}")
-    kp_default = existing.get("KEYPAIR_PATH", "~/.config/solana/datboi.json")
+    kp_default = existing.get("KEYPAIR_PATH", "~/.config/solana/pipboi.json")
     keypair = ask("   Default keypair path", kp_default)
 
     print(f"\n{B}4) Capital reference (USD){R}  {D}(actual size comes from your live SOL balance){R}")
@@ -140,7 +140,7 @@ def bootstrap():
         "# Auto-created on first run. Finish setup in your browser (enter API keys) at",
         "# http://localhost:8080  — or run: python3 setup.py . Never commit this file.",
         "HELIUS_API_KEY=",
-        "KEYPAIR_PATH=~/.config/solana/datboi.json",
+        "KEYPAIR_PATH=~/.config/solana/pipboi.json",
         "TOTAL_CAPITAL_USD=100.0",
         "",
         f"DASHBOARD_SECRET={dash_secret}",

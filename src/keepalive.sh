@@ -9,7 +9,7 @@
 #
 # Survives process death, NOT reboot/logout (use the launchd plists in
 # deploy/ for that). Reversible: pkill -f keepalive.sh
-# Start: cd /path/to/datboi && nohup ./keepalive.sh >>logs/keepalive.log 2>&1 &
+# Start: cd /path/to/pipboi && nohup ./keepalive.sh >>logs/keepalive.log 2>&1 &
 cd "$(dirname "$0")" || exit 1
 mkdir -p logs
 echo "[keepalive] started pid $$ at $(date)"

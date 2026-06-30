@@ -18,7 +18,7 @@ the operator / Risk Governor dispose. This enforces THE ONE OPERATOR RULE struct
 
 ## Run it
 ```bash
-cd /path/to/datboi
+cd /path/to/pipboi
 
 # One heartbeat, inspect-only (no LLM, no token spend) — writes the exact prompt to disk:
 python3 agents/agent_runner.py strategy  --dry-run

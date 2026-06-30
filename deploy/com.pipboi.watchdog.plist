@@ -8,32 +8,32 @@
 
      Install:
        Install with: ./deploy/install.sh  (fills the real path + loads the agent)
-       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.datboi.watchdog.plist
-       launchctl enable gui/$(id -u)/com.datboi.watchdog
+       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.pipboi.watchdog.plist
+       launchctl enable gui/$(id -u)/com.pipboi.watchdog
      Remove:
-       launchctl bootout gui/$(id -u)/com.datboi.watchdog
+       launchctl bootout gui/$(id -u)/com.pipboi.watchdog
      Run once now (test):
-       launchctl kickstart -k gui/$(id -u)/com.datboi.watchdog
+       launchctl kickstart -k gui/$(id -u)/com.pipboi.watchdog
 -->
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.datboi.watchdog</string>
+  <string>com.pipboi.watchdog</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
     <string>-lc</string>
-    <string>cd __DATBOI_DIR__/src &amp;&amp; python3 fleet_watchdog.py</string>
+    <string>cd __PIPBOI_DIR__/src &amp;&amp; python3 fleet_watchdog.py</string>
   </array>
   <key>WorkingDirectory</key>
-  <string>__DATBOI_DIR__/src</string>
+  <string>__PIPBOI_DIR__/src</string>
   <key>RunAtLoad</key>
   <true/>
   <key>StartInterval</key>
   <integer>21600</integer>
   <key>StandardOutPath</key>
-  <string>__DATBOI_DIR__/src/logs/watchdog_launchd.log</string>
+  <string>__PIPBOI_DIR__/src/logs/watchdog_launchd.log</string>
   <key>StandardErrorPath</key>
-  <string>__DATBOI_DIR__/src/logs/watchdog_launchd.log</string>
+  <string>__PIPBOI_DIR__/src/logs/watchdog_launchd.log</string>
 </dict>
 </plist>

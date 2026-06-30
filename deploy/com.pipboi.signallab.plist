@@ -11,30 +11,30 @@
 
      Install:
        Install with: ./deploy/install.sh  (fills the real path + loads the agent)
-       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.datboi.signallab.plist
-       launchctl enable gui/$(id -u)/com.datboi.signallab
+       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.pipboi.signallab.plist
+       launchctl enable gui/$(id -u)/com.pipboi.signallab
      Remove:
-       launchctl bootout gui/$(id -u)/com.datboi.signallab
+       launchctl bootout gui/$(id -u)/com.pipboi.signallab
 -->
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.datboi.signallab</string>
+  <string>com.pipboi.signallab</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
     <string>-lc</string>
-    <string>cd __DATBOI_DIR__/src &amp;&amp; exec python3 signal_lab.py --log</string>
+    <string>cd __PIPBOI_DIR__/src &amp;&amp; exec python3 signal_lab.py --log</string>
   </array>
   <key>WorkingDirectory</key>
-  <string>__DATBOI_DIR__/src</string>
+  <string>__PIPBOI_DIR__/src</string>
   <key>RunAtLoad</key>
   <true/>
   <key>KeepAlive</key>
   <true/>
   <key>StandardOutPath</key>
-  <string>__DATBOI_DIR__/src/logs/signal_lab.log</string>
+  <string>__PIPBOI_DIR__/src/logs/signal_lab.log</string>
   <key>StandardErrorPath</key>
-  <string>__DATBOI_DIR__/src/logs/signal_lab.log</string>
+  <string>__PIPBOI_DIR__/src/logs/signal_lab.log</string>
 </dict>
 </plist>

@@ -1,5 +1,5 @@
 #!/bin/bash
-# run.sh — start DATBOI: the discovery sidecar + the dashboard + the bot.
+# run.sh — start PIPBOI: the discovery sidecar + the dashboard + the bot.
 # Source lives in src/; everything runs with src/ as the working directory so the
 # bot, sidecar, dashboard, and tools all agree on where state lives (src/bots,
 # src/shared_memory, src/logs). Your .env stays at the repo root.
@@ -16,10 +16,10 @@ fi
 # and print the one-line fix instead of a scary traceback. Stdlib-only, always runs.
 python3 src/doctor.py --preflight || exit 1
 
-# DATBOI — boot banner (green phosphor)
+# PIPBOI — boot banner (green phosphor)
 G=$'\033[1;32m'; D=$'\033[2;32m'; R=$'\033[0m'
 printf '\n'
-printf '%s   🐸  DATBOI%s\n' "$G" "$R"
+printf '%s   🐸  PIPBOI%s\n' "$G" "$R"
 printf '%s      ═══════>   ═══════>   ═══════>%s\n' "$D" "$R"
 printf '%s      autonomous solana trading bot%s\n' "$D" "$R"
 _PORT=$(grep -E '^DASHBOARD_PORT=' .env 2>/dev/null | cut -d= -f2 | tr -d ' ')
@@ -43,7 +43,7 @@ _shutdown() {
     trap - EXIT INT TERM
     _log_sig "${1:-EXIT}"
     echo ""
-    echo "[DATBOI] shutting everything down (sig ${1:-EXIT})..."
+    echo "[PIPBOI] shutting everything down (sig ${1:-EXIT})..."
     kill 0
 }
 trap '_shutdown EXIT' EXIT
@@ -62,7 +62,7 @@ fi
 # Start the discovery sidecar first — one shared polling process feeds the bot.
 python3 discovery_service.py &
 _SIDECAR_PID=$!
-echo "[DATBOI] Discovery sidecar started (pid $_SIDECAR_PID) — waiting for first snapshot..."
+echo "[PIPBOI] Discovery sidecar started (pid $_SIDECAR_PID) — waiting for first snapshot..."
 sleep 3
 
 # macOS: caffeinate keeps the machine awake while trading. On Linux it does not

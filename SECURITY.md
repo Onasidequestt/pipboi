@@ -1,6 +1,6 @@
 # Security
 
-DATBOI is a **self-hosted** trading bot: it runs entirely on *your* machine, on *your* wallet,
+PIPBOI is a **self-hosted** trading bot: it runs entirely on *your* machine, on *your* wallet,
 with *your* API keys. Nothing about it phones home. This page explains exactly what touches your
 money and your secrets, so you can read the code and trust it before you run it.
 
@@ -13,7 +13,7 @@ money and your secrets, so you can read the code and trust it before you run it.
 | Secret | Lives in | Committed to git? |
 |---|---|---|
 | API keys (Helius, Bitquery), dashboard PIN | `.env` (repo root) | **No** — git-ignored |
-| Wallet private key | `KEYPAIR_PATH` (default `~/.config/solana/datboi.json`) or `src/bots/botN/keypair.json` | **No** — git-ignored |
+| Wallet private key | `KEYPAIR_PATH` (default `~/.config/solana/pipboi.json`) or `src/bots/botN/keypair.json` | **No** — git-ignored |
 | Trade history / balances / runtime state | `src/bots/`, `src/shared_memory/`, `*.db` | **No** — git-ignored |
 
 The [`.gitignore`](.gitignore) is configured to exclude all of these (`.env*`, `**/keypair.json`,
@@ -63,6 +63,6 @@ privately for anything that could put users' funds at risk. There is no bug-boun
 
 ## No warranty
 
-DATBOI is provided under the [MIT License](LICENSE), **as-is, with no warranty**, and is **not
+PIPBOI is provided under the [MIT License](LICENSE), **as-is, with no warranty**, and is **not
 financial advice**. It trades real money on extremely volatile markets and can lose all of it. You
 are solely responsible for your keys, your funds, and your decisions.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DATBOI — Setup</title>
+<title>PIPBOI — Setup</title>
 <style>
   :root{ --bg:#070b07; --card:#0e140e; --line:#1c2a1c; --g:#3DFB6E; --gd:#2BCB56;
          --txt:#dfeee2; --dim:#8aa890; --warn:#FFD27A; }
@@ -43,7 +43,7 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>🐸 DATBOI — Setup</h1>
+  <h1>🐸 PIPBOI — Setup</h1>
   <p class="sub">Enter your API keys to get started. Everything is saved locally to
      your <code>.env</code> (gitignored) — nothing is sent anywhere.</p>
 
@@ -111,12 +111,12 @@ async function save(){
     if(r.status === 429){ show('err','Too many attempts — wait a moment.'); return; }
     const d = await r.json();
     if(!d.ok){ show('err', d.error || 'Save failed.'); return; }
-    show('ok','✓ Saved! Now restart DATBOI to apply: press Ctrl-C in the terminal, '
-            + 'run ./datboi run again, then reload this page. Your dashboard will appear — '
+    show('ok','✓ Saved! Now restart PIPBOI to apply: press Ctrl-C in the terminal, '
+            + 'run ./pipboi run again, then reload this page. Your dashboard will appear — '
             + 'click Activate to generate a wallet and start trading.');
     btn.textContent = 'Saved ✓';
   }catch(e){
-    show('err','Network error — is DATBOI running? (start it with ./datboi run)');
+    show('err','Network error — is PIPBOI running? (start it with ./pipboi run)');
   }finally{
     if(btn.textContent === 'Saving…'){ btn.disabled = false; btn.textContent = 'Save & continue'; }
   }

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-DATBOI — doctor: a friendly self-check that tells you exactly what (if anything)
+PIPBOI — doctor: a friendly self-check that tells you exactly what (if anything)
 is wrong and the one command to fix it.
 
-    ./datboi doctor              # full health check
-    ./datboi doctor --preflight  # only the must-pass-to-boot checks (used by run.sh)
+    ./pipboi doctor              # full health check
+    ./pipboi doctor --preflight  # only the must-pass-to-boot checks (used by run.sh)
 
 Stdlib-only on purpose — it runs even before `pip install`, since checking whether
 your dependencies are installed is one of the things it does.
@@ -58,7 +58,7 @@ def check_python():
     if v >= (3, 9):
         return OK, f"Python {v.major}.{v.minor}.{v.micro}", None
     return BAD, f"Python {v.major}.{v.minor} is too old", \
-        "DATBOI needs Python 3.9+. Install a newer Python (e.g. python.org or `brew install python`)."
+        "PIPBOI needs Python 3.9+. Install a newer Python (e.g. python.org or `brew install python`)."
 
 
 def check_venv():
@@ -85,7 +85,7 @@ def check_env():
     if ENV.exists():
         return OK, ".env present (at repo root)", None
     return WARN, "no .env yet (created automatically on first run)", \
-        "./datboi setup   (or just ./datboi run and finish in the browser)"
+        "./pipboi setup   (or just ./pipboi run and finish in the browser)"
 
 
 def check_helius(cfg):
@@ -93,7 +93,7 @@ def check_helius(cfg):
     if key and key != "your_helius_api_key_here":
         return OK, "Helius API key is set", None
     return WARN, "Helius API key not set yet", \
-        "Get a free key at https://dashboard.helius.dev → enter it at http://localhost:8080 (or ./datboi setup)"
+        "Get a free key at https://dashboard.helius.dev → enter it at http://localhost:8080 (or ./pipboi setup)"
 
 
 def check_pin(cfg):
@@ -117,7 +117,7 @@ def check_wallet(cfg):
 
 def check_port():
     if _port_busy():
-        return WARN, "port 8080 is in use — DATBOI may already be running", \
+        return WARN, "port 8080 is in use — PIPBOI may already be running", \
             "Open http://localhost:8080 . If that's something else, stop it or set DASHBOARD_PORT in .env."
     return OK, "port 8080 is free", None
 
@@ -130,7 +130,7 @@ def check_running():
             return OK, "dashboard process is running", None
     except Exception:
         pass
-    return WARN, "bot not running right now", "./datboi run"
+    return WARN, "bot not running right now", "./pipboi run"
 
 
 def preflight():
@@ -141,7 +141,7 @@ def preflight():
         if sym == BAD:
             bad.append((msg, fix))
     if bad:
-        print(f"\n{Rd}{B}DATBOI can't start yet:{R}")
+        print(f"\n{Rd}{B}PIPBOI can't start yet:{R}")
         for msg, fix in bad:
             print(f"  {BAD} {msg}")
             if fix:
@@ -152,7 +152,7 @@ def preflight():
 
 
 def main():
-    print(f"\n{G}{B}🐸  DATBOI doctor{R}  {D}— checking your setup{R}\n")
+    print(f"\n{G}{B}🐸  PIPBOI doctor{R}  {D}— checking your setup{R}\n")
     cfg = _read_env()
     # (check, optional?) — optional checks never become the headline "next step"
     checks = [

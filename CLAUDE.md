@@ -1,6 +1,6 @@
-# CLAUDE.md — operating guide for DATBOI
+# CLAUDE.md — operating guide for PIPBOI
 
-You are helping someone run **their own** DATBOI: an autonomous Solana
+You are helping someone run **their own** PIPBOI: an autonomous Solana
 memecoin trading bot with a live dashboard and an evidence-gated learning
 loop. This file is your map and your rulebook. Read it before acting.
 
@@ -9,13 +9,13 @@ The person you're helping owns the wallet and the risk. Your job is to help them
 
 **Layout:** all code lives in `src/` (flat — `import wallet`, `import config`, etc.
 resolve because everything runs with `src/` as the working directory). Tests are in
-`tests/`. The `.env` lives at the repo root. The `./datboi` launcher at the root
-runs everything from `src/` for you — `./datboi status`, `./datboi run`,
-`./datboi setup`, `./datboi doctor`, `./datboi test`, or `./datboi <tool>`
-(e.g. `./datboi edge_report`).
+`tests/`. The `.env` lives at the repo root. The `./pipboi` launcher at the root
+runs everything from `src/` for you — `./pipboi status`, `./pipboi run`,
+`./pipboi setup`, `./pipboi doctor`, `./pipboi test`, or `./pipboi <tool>`
+(e.g. `./pipboi edge_report`).
 
 **When the user is stuck on setup/install** ("it won't start", "ModuleNotFound",
-"no trades", "where's my PIN?") → run **`./datboi doctor`** first. It's a stdlib-only
+"no trades", "where's my PIN?") → run **`./pipboi doctor`** first. It's a stdlib-only
 self-check (works even before `pip install`) that reports Python version, deps,
 `.env`, the Helius key, the dashboard PIN, the wallet, and the port — each with the
 exact fix. Paste its output back; it usually pinpoints the problem in one step.
@@ -57,11 +57,11 @@ server, no browser. When the user says anything like *"how's my bot?"*,
 *"how's it doing?"*, *"check the bot"*, *"status?"*, *"are we up?"* — run:
 
 ```bash
-./datboi status                    # the bot (the default)
-./datboi status --trades 8         # more recent trades
+./pipboi status                    # the bot (the default)
+./pipboi status --trades 8         # more recent trades
 ```
 
-(`./datboi` with no args does the same thing. If you'd rather call Python directly,
+(`./pipboi` with no args does the same thing. If you'd rather call Python directly,
 `python3 src/status.py` works too.)
 
 It prints one clean terminal card: wallet ◎, progress toward the ◎2.0 prestige
@@ -122,7 +122,7 @@ data sources → discovery_service.py (sidecar) → bot (main.py) → dashboard.
 
 **Dashboard / ops**
 - `src/dashboard.py`, `src/templates/` — the web UI (`localhost:8080`).
-- `run.sh` / `datboi` — launchers (start sidecar + dashboard + bot).
+- `run.sh` / `pipboi` — launchers (start sidecar + dashboard + bot).
 - `deploy/` — optional macOS LaunchAgents for reboot-durable uptime (`deploy/install.sh`).
 - `src/agents/` — advisory Claude agents (needs `ANTHROPIC_API_KEY`); advisory only,
   no path to funds.
@@ -139,7 +139,7 @@ data sources → discovery_service.py (sidecar) → bot (main.py) → dashboard.
 ## Running & restarting
 
 ```bash
-./datboi run             # start everything (sidecar + dashboard + bot); ./run.sh also works
+./pipboi run             # start everything (sidecar + dashboard + bot); ./run.sh also works
 # stop: Ctrl-C in that terminal (it tears down the whole process group)
 ```
 
@@ -172,7 +172,7 @@ When you propose changes, prefer ones that the gates can still judge honestly.
 ## Common things the user may ask you to do
 
 - **"Help me set it up" / "onboard me"** → walk through `SETUP.md`. The flow:
-  `pip install -r requirements.txt` → `./datboi run` → finish setup. There are three
+  `pip install -r requirements.txt` → `./pipboi run` → finish setup. There are three
   equivalent ways to enter keys — pick whatever the user prefers:
   (1) the **browser setup page** at `http://localhost:8080` (first run shows it),
   (2) the **terminal wizard** `python3 src/setup.py`, or
@@ -182,12 +182,12 @@ When you propose changes, prefer ones that the gates can still judge honestly.
   src/setup.py`, or set the values — but **never echo the secret values back** in
   chat). Then they click **Activate** in the dashboard, which generates the
   wallet and starts trading. Restart the bot after `.env` changes.
-- **"Is it making money?"** → `./datboi edge_report --by-play`,
-  `./datboi prestige_tracker`, `./datboi kill_criterion`. Report honestly,
+- **"Is it making money?"** → `./pipboi edge_report --by-play`,
+  `./pipboi prestige_tracker`, `./pipboi kill_criterion`. Report honestly,
   including when the answer is "no / not proven."
 - **"Why did it (not) trade X?"** → the `SCOUT` tab + the bot's logs carry skip
   reasons; the ledger (`trades.db` / `LEDGER` tab) carries exit reasons.
-- **"Restart it"** → Ctrl-C the `./datboi run` terminal, `./datboi run`. Verify liveness.
+- **"Restart it"** → Ctrl-C the `./pipboi run` terminal, `./pipboi run`. Verify liveness.
 - **"Tune the strategy"** → explain the tradeoff, prefer a `src/bots/botN/` canary
   file (opt-in, reversible — delete it to revert), keep it reversible, never
   touch `ev_sizing.json` by hand.

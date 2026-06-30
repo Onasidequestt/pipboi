@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-DATBOI — terminal status viewer.
+PIPBOI — terminal status viewer.
 
 The simplest way to check on your bot: just ask Claude "how's my bot doing?"
 and it runs this. No web server, no browser, no localhost — a clean readout
@@ -28,7 +28,7 @@ PRESTIGE_GOAL = 2.0  # ◎ — a bot "graduates" (prestiges) when it doubles to 
 _TTY = sys.stdout.isatty() and os.environ.get("NO_COLOR") is None
 def _c(code: str) -> str:
     return code if _TTY else ""
-GREEN  = _c("\033[38;5;48m")   # vivid phosphor green (DATBOI)
+GREEN  = _c("\033[38;5;48m")   # vivid phosphor green (PIPBOI)
 DIM    = _c("\033[38;5;65m")   # muted green
 CORAL  = _c("\033[38;5;210m")  # soft loss coral (never alarm-red)
 WHITE  = _c("\033[38;5;255m")
@@ -159,7 +159,7 @@ def render_bot(bot: int, n_trades: int = 5) -> str:
     top = f"{DIM}╔{'═' * (W + 2)}╗{RST}"
     mid = f"{DIM}╠{'═' * (W + 2)}╣{RST}"
     _suffix = f" · bot {bot}" if bot != 1 else ""
-    bot_lbl = f"{BOLD}{GREEN}DATBOI{RST}{DIM}{_suffix}{RST}"
+    bot_lbl = f"{BOLD}{GREEN}PIPBOI{RST}{DIM}{_suffix}{RST}"
 
     if st is None:
         out.append(top)
@@ -169,14 +169,14 @@ def render_bot(bot: int, n_trades: int = 5) -> str:
                          _visible_len("No bot running yet — three steps to start:")))
         out.append(_line())
         for txt, plain in (
-            (f"{GREEN}1.{RST} {WHITE}./datboi run{RST}         {GREY}start the bot + dashboard{RST}",
-             "1. ./datboi run         start the bot + dashboard"),
+            (f"{GREEN}1.{RST} {WHITE}./pipboi run{RST}         {GREY}start the bot + dashboard{RST}",
+             "1. ./pipboi run         start the bot + dashboard"),
             (f"{GREEN}2.{RST} open {WHITE}localhost:8080{RST}  {GREY}→ click Activate, fund the wallet{RST}",
              "2. open localhost:8080  → click Activate, fund the wallet"),
             (f"{GREEN}3.{RST} {GREY}ask me {RST}{WHITE}“how's my bot?”{RST}{GREY} again once it trades{RST}",
              "3. ask me “how's my bot?” again once it trades"),
-            (f"{GREY}   stuck? run {RST}{WHITE}./datboi doctor{RST}{GREY} for a checkup{RST}",
-             "   stuck? run ./datboi doctor for a checkup"),
+            (f"{GREY}   stuck? run {RST}{WHITE}./pipboi doctor{RST}{GREY} for a checkup{RST}",
+             "   stuck? run ./pipboi doctor for a checkup"),
         ):
             out.append(_line(txt, _visible_len(plain)))
         out.append(f"{DIM}╚{'═' * (W + 2)}╝{RST}")
@@ -274,7 +274,7 @@ def _discover_bots():
 
 
 def main():
-    ap = argparse.ArgumentParser(description="DATBOI terminal status viewer (read-only)")
+    ap = argparse.ArgumentParser(description="PIPBOI terminal status viewer (read-only)")
     ap.add_argument("--bot", type=int, default=1, help="which bot (default 1)")
     ap.add_argument("--all", action="store_true", help="show every bot found")
     ap.add_argument("--trades", type=int, default=5, help="recent trades to show")

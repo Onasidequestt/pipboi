@@ -1,18 +1,18 @@
 ---
 name: 🐛 Bug report
-about: Something broke while installing or running DATBOI
+about: Something broke while installing or running PIPBOI
 title: "[bug] "
 labels: bug
 ---
 
-**Before filing:** run `./datboi doctor` and paste its output below — it catches most
+**Before filing:** run `./pipboi doctor` and paste its output below — it catches most
 setup issues (Python version, missing deps, keys, port) and often points right at the fix.
 
 ### What happened
 
 <!-- What did you do, and what went wrong? -->
 
-### `./datboi doctor` output
+### `./pipboi doctor` output
 
 ```
 paste here

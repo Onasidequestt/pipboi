@@ -11,6 +11,6 @@ setup and usage live.
 
 ### Your question
 
-<!-- Ask away. If it's a setup problem, paste `./datboi doctor` output and your OS + python3 --version. -->
+<!-- Ask away. If it's a setup problem, paste `./pipboi doctor` output and your OS + python3 --version. -->
 
 > ⚠️ Never paste your `.env`, API keys, or wallet/keypair here.

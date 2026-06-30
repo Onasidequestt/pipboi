@@ -1,5 +1,5 @@
 """
-DATBOI — Dashboard & Process Manager
+PIPBOI — Dashboard & Process Manager
 The dashboard runs the bot as a headless process managed here.
 """
 import asyncio
@@ -432,7 +432,7 @@ async def index():
     )
 
 
-# ── Brand assets (DATBOI logo) ──────────────────────────────────────────────────
+# ── Brand assets (PIPBOI logo) ──────────────────────────────────────────────────
 # Static, public, read-only. Allowlisted filenames only — no path traversal, no
 # arbitrary file reads. Served same-origin so the CSP img-src 'self' permits them.
 _ASSET_TYPES = {
@@ -531,7 +531,7 @@ async def setup_status(request: Request):
         "helius":     bool(cfg.get("HELIUS_API_KEY", "").strip()),
         "bitquery":   bool(cfg.get("BITQUERY_API_KEY", "").strip()),
         "rpc":        bool(cfg.get("RPC_URL", "").strip()),
-        "keypair_path": cfg.get("KEYPAIR_PATH", "~/.config/solana/datboi.json"),
+        "keypair_path": cfg.get("KEYPAIR_PATH", "~/.config/solana/pipboi.json"),
         "capital":    cfg.get("TOTAL_CAPITAL_USD", "100.0"),
     })
 

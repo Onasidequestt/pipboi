@@ -10,32 +10,32 @@
 
      Install:
        Install with: ./deploy/install.sh  (fills the real path + loads the agent)
-       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.datboi.brain.plist
-       launchctl enable gui/$(id -u)/com.datboi.brain
+       launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.pipboi.brain.plist
+       launchctl enable gui/$(id -u)/com.pipboi.brain
      Remove:
-       launchctl bootout gui/$(id -u)/com.datboi.brain
+       launchctl bootout gui/$(id -u)/com.pipboi.brain
      Run once now (test):
-       launchctl kickstart -k gui/$(id -u)/com.datboi.brain
+       launchctl kickstart -k gui/$(id -u)/com.pipboi.brain
 -->
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.datboi.brain</string>
+  <string>com.pipboi.brain</string>
   <key>ProgramArguments</key>
   <array>
     <string>/bin/bash</string>
     <string>-lc</string>
-    <string>cd __DATBOI_DIR__/src &amp;&amp; python3 strategy_brain.py --evolve --horizon 30</string>
+    <string>cd __PIPBOI_DIR__/src &amp;&amp; python3 strategy_brain.py --evolve --horizon 30</string>
   </array>
   <key>WorkingDirectory</key>
-  <string>__DATBOI_DIR__/src</string>
+  <string>__PIPBOI_DIR__/src</string>
   <key>RunAtLoad</key>
   <true/>
   <key>StartInterval</key>
   <integer>3600</integer>
   <key>StandardOutPath</key>
-  <string>__DATBOI_DIR__/src/logs/brain_loop.log</string>
+  <string>__PIPBOI_DIR__/src/logs/brain_loop.log</string>
   <key>StandardErrorPath</key>
-  <string>__DATBOI_DIR__/src/logs/brain_loop.log</string>
+  <string>__PIPBOI_DIR__/src/logs/brain_loop.log</string>
 </dict>
 </plist>
